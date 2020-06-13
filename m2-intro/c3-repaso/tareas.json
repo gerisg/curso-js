@@ -1,0 +1,22 @@
+[
+ {
+  "titulo": "Practicar el switch",
+  "descripcion": "Entender para qué puedo usarlo",
+  "estado": "pendiente"
+ },
+ {
+  "titulo": "Practicar el for",
+  "descripcion": "Entender cómo se usa",
+  "estado": "en progreso"
+ },
+ {
+  "titulo": "Objeto vs JSON",
+  "descripcion": "Qué tienen de diferente?",
+  "estado": "terminada"
+ },
+ {
+  "titulo": "Aprender métodos de strings",
+  "descripcion": "A ver qué se puede hacer",
+  "estado": "terminada"
+ }
+]

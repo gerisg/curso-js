@@ -1,1 +1,2 @@
-# curso-js
+# Curso JavaScript
+## Digital House
