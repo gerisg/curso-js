@@ -18,12 +18,6 @@ switch (action) {
         tareas.remove(params[0]);
         break;
     case undefined:
-    case 'todas':
-        tareas.list();
-        break;
-    case 'pendientes':
-        tareas.list('pendiente');
-        break;
     case 'listar':
         // params: estado
         tareas.list(params[0]);

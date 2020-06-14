@@ -1,22 +1,23 @@
 const chalk = require('chalk');
 const fs = require('fs');
+const FILENAME = './tareas.json'
 
 // States
 let states = { 'pendiente': chalk.red, 'en progreso': chalk.blueBright, 'terminada': chalk.green };
 
 // Read tasks from JSON
 function jsonToTasks() {
-    const jsonTasks = fs.readFileSync('./tareas.json', 'utf-8');
+    const jsonTasks = fs.readFileSync(FILENAME, 'utf-8');
     return JSON.parse(jsonTasks);
 }
 
 // Save tasks to JSON
 function tasksToJSON(tasks) {
     let jsonTasks = JSON.stringify(tasks, null, ' ');
-    fs.writeFileSync('./tareas.json', jsonTasks);
+    fs.writeFileSync(FILENAME, jsonTasks);
 }
 
-// Imprimir una tarea formateada
+// Print tasks with details
 function longPrintTask(task) {
     console.log(`
     TITULO: ${chalk.bold.white(task.titulo)} ${states[task.estado]('(' + task.estado.toUpperCase() + ')')}
@@ -24,17 +25,17 @@ function longPrintTask(task) {
     `);
 }
 
-// Imprimir una tarea formateada
+// Print title and state properties
 function shortPrintTask(task) {
     console.log(`◇ ${chalk.bold.white(task.titulo)} ${states[task.estado]('(' + task.estado.toUpperCase() + ')')}`);
 }
 
-// Formato de mensaje ERROR
+// Error message
 function error(msg, title = 'Oh no!!') {
     console.log(`${chalk.bold.red(title)} ${chalk.red(msg)}`);
 }
 
-// Formato de mensaje INFO
+// Info message
 function info(msg, title = 'Enhorabuena!!') {
     console.log(`${chalk.bold.green(title)} ${chalk.green(msg)}`);
 }
