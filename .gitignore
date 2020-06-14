@@ -2,6 +2,7 @@
 node_modules/
 jspm_packages/
 package-lock.json
+tareas.json
 
 # Optional npm cache directory
 .npm
