@@ -47,6 +47,12 @@ function all() {
     });
 }
 
+function find(title) {
+    let tasks = jsonToTasks();
+    let foundIndex = tasks.findIndex(t => t.titulo == title);
+    return foundIndex;
+}
+
 function create(title, description = '', state = 'pendiente' ) {
     // validar
     if(!title) {
@@ -116,15 +122,11 @@ function list(state) {
 }
 
 function show(title) {
-    find(title) != -1 ? longPrintTask(tasks[foundIndex]) : error('No existe la tarea');
-}
-
-function find(title) {
     let tasks = jsonToTasks();
-    let foundIndex = tasks.findIndex(t => t.titulo == title);
-    return foundIndex;
+    let foundIndex = find(title);
+    foundIndex != -1 ? longPrintTask(tasks[foundIndex]) : error('No existe la tarea');
 }
 
 module.exports = {
-    create, toDone, remove, list, show
+    create, toDone, remove, list, show, error
 };

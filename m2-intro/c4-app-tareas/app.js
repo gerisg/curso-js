@@ -27,5 +27,5 @@ switch (action) {
         tareas.show(params[0]);
         break;
     default:
-        console.log('Operación no válida');
+        tareas.error('Operación no válida');
 }
