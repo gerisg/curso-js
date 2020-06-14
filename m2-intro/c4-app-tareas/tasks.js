@@ -1,6 +1,9 @@
 const chalk = require('chalk');
 const fs = require('fs');
 
+// States by color
+let statesByColor = { 'pendiente': chalk.red, 'en progreso': chalk.blueBright, 'terminada': chalk.green };
+
 // Read tasks from JSON
 function jsonToTasks() {
     const jsonTasks = fs.readFileSync('./tareas.json', 'utf-8');
@@ -14,22 +17,39 @@ function tasksToJSON(tasks) {
 }
 
 // Imprimir una tarea formateada
-function printTask(task) {
-    console.log("***", task.titulo, "*** (" + task.estado + ")");
-    console.log(chalk.inverse.red(task.descripcion));
+function longPrintTask(task) {
+    console.log(`
+    TITULO: ${chalk.bold.white(task.titulo)} ${statesByColor[task.estado]('(' + task.estado.toUpperCase() + ')')}
+    DESCRIPCION: ${chalk.yellow(task.descripcion)}
+    `);
+}
+
+// Imprimir una tarea formateada
+function shortPrintTask(task) {
+    console.log(`◇ ${chalk.bold.white(task.titulo)} ${statesByColor[task.estado]('(' + task.estado.toUpperCase() + ')')}`);
+}
+
+// Formato de mensaje ERROR
+function error(msg, title = 'Oh no!!') {
+    console.log(`${chalk.bold.red(title)} ${chalk.red(msg)}`);
+}
+
+// Formato de mensaje INFO
+function info(msg, title = 'Enhorabuena!!') {
+    console.log(`${chalk.bold.green(title)} ${chalk.green(msg)}`);
 }
 
 function all() {
     let tasks = jsonToTasks();
     tasks.forEach(e => {
-        printTask(e);
+        shortPrintTask(e);
     });
 }
 
 function create(title, description = '', state = 'pendiente' ) {
     // validar
     if(!title) {
-        console.log('Tarea no válida');
+        error('Debe ingresar una tarea válida');
         return;
     }
 
@@ -38,17 +58,18 @@ function create(title, description = '', state = 'pendiente' ) {
         descripcion: description,
         estado: state
     };
+
     let tasks = jsonToTasks();
     tasks.push(newTask);
 
     tasksToJSON(tasks);
-    console.log("Tarea creada!");
+    info('Tarea creada');
 }
 
 function toDone(title) {
     // validar
     if(!title) {
-        console.log('Tarea no válida');
+        error('Debe ingresar una tarea válida');
         return;
     }
 
@@ -59,13 +80,13 @@ function toDone(title) {
     });
 
     tasksToJSON(tasks);
-    console.log("Tarea guardada!");
+    info('Tarea completada');
 }
 
 function remove(title) {
     // validar
     if(!title) {
-        console.log('Tarea no válida');
+        error('Debe ingresar una tarea válida');
         return;
     }
 
@@ -73,9 +94,9 @@ function remove(title) {
     let cleanTasks  = tasks.filter(t => t.titulo !== title);
     if (cleanTasks.length < tasks.length) {
         tasksToJSON(cleanTasks);
-        console.log("Tarea borrada!");
+        info('Tarea borrada!');
     } else {
-        console.log("No existe la tarea");
+        error('No existe la tarea');
     }
 }
 
@@ -84,16 +105,19 @@ function list(state) {
         let tasks = jsonToTasks();
         let tasksFiltradas = tasks.filter(t => t.estado == state);
         tasksFiltradas.forEach(e => {
-            printTask(e);
+            shortPrintTask(e);
         });
     } else {
         all();
     }
 }
 
+function show(title) {
+    let tasks = jsonToTasks();
+    let foundIndex = tasks.findIndex(t => t.titulo == title);
+    foundIndex != -1 ? longPrintTask(tasks[foundIndex]) : error('No existe la tarea');
+}
+
 module.exports = {
-    create: create,
-    toDone: toDone,
-    remove: remove,
-    list: list
+    create, toDone, remove, list, show
 };
