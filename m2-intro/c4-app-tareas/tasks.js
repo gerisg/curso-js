@@ -1,8 +1,8 @@
 const chalk = require('chalk');
 const fs = require('fs');
 
-// States by color
-let statesByColor = { 'pendiente': chalk.red, 'en progreso': chalk.blueBright, 'terminada': chalk.green };
+// States
+let states = { 'pendiente': chalk.red, 'en progreso': chalk.blueBright, 'terminada': chalk.green };
 
 // Read tasks from JSON
 function jsonToTasks() {
@@ -19,14 +19,14 @@ function tasksToJSON(tasks) {
 // Imprimir una tarea formateada
 function longPrintTask(task) {
     console.log(`
-    TITULO: ${chalk.bold.white(task.titulo)} ${statesByColor[task.estado]('(' + task.estado.toUpperCase() + ')')}
+    TITULO: ${chalk.bold.white(task.titulo)} ${states[task.estado]('(' + task.estado.toUpperCase() + ')')}
     DESCRIPCION: ${chalk.yellow(task.descripcion)}
     `);
 }
 
 // Imprimir una tarea formateada
 function shortPrintTask(task) {
-    console.log(`◇ ${chalk.bold.white(task.titulo)} ${statesByColor[task.estado]('(' + task.estado.toUpperCase() + ')')}`);
+    console.log(`◇ ${chalk.bold.white(task.titulo)} ${states[task.estado]('(' + task.estado.toUpperCase() + ')')}`);
 }
 
 // Formato de mensaje ERROR
@@ -68,7 +68,7 @@ function create(title, description = '', state = 'pendiente' ) {
 
 function toDone(title) {
     // validar
-    if(!title) {
+    if(!title || find(title) == -1) {
         error('Debe ingresar una tarea válida');
         return;
     }
@@ -94,28 +94,34 @@ function remove(title) {
     let cleanTasks  = tasks.filter(t => t.titulo !== title);
     if (cleanTasks.length < tasks.length) {
         tasksToJSON(cleanTasks);
-        info('Tarea borrada!');
+        info('Tarea borrada');
     } else {
         error('No existe la tarea');
     }
 }
 
 function list(state) {
-    if(state) {
+    if(!state) {
+        all();
+    } else if(!states.hasOwnProperty(state)) {
+        error('Debe ingresar un estado válido');
+    } else {
         let tasks = jsonToTasks();
         let tasksFiltradas = tasks.filter(t => t.estado == state);
         tasksFiltradas.forEach(e => {
             shortPrintTask(e);
         });
-    } else {
-        all();
     }
 }
 
 function show(title) {
+    find(title) != -1 ? longPrintTask(tasks[foundIndex]) : error('No existe la tarea');
+}
+
+function find(title) {
     let tasks = jsonToTasks();
     let foundIndex = tasks.findIndex(t => t.titulo == title);
-    foundIndex != -1 ? longPrintTask(tasks[foundIndex]) : error('No existe la tarea');
+    return foundIndex;
 }
 
 module.exports = {
