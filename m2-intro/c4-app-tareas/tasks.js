@@ -1,54 +1,18 @@
-const chalk = require('chalk');
-const fs = require('fs');
-const FILENAME = './tareas.json'
+const json = require('./jsonTasks');
+const message = require('./message');
+const print = require('./formatter');
 
-// States
-let states = { 'pendiente': chalk.red, 'en progreso': chalk.blueBright, 'terminada': chalk.green };
-
-// Read tasks from JSON
-function jsonToTasks() {
-    const jsonTasks = fs.readFileSync(FILENAME, 'utf-8');
-    return JSON.parse(jsonTasks);
-}
-
-// Save tasks to JSON
-function tasksToJSON(tasks) {
-    let jsonTasks = JSON.stringify(tasks, null, ' ');
-    fs.writeFileSync(FILENAME, jsonTasks);
-}
-
-// Print tasks with details
-function longPrintTask(task) {
-    console.log(`
-    TITULO: ${chalk.bold.white(task.titulo)} ${states[task.estado]('(' + task.estado.toUpperCase() + ')')}
-    DESCRIPCION: ${chalk.yellow(task.descripcion)}
-    `);
-}
-
-// Print title and state properties
-function shortPrintTask(task) {
-    console.log(`◇ ${chalk.bold.white(task.titulo)} ${states[task.estado]('(' + task.estado.toUpperCase() + ')')}`);
-}
-
-// Error message
-function error(msg, title = 'Oh no!!') {
-    console.log(`${chalk.bold.red(title)} ${chalk.red(msg)}`);
-}
-
-// Info message
-function info(msg, title = 'Enhorabuena!!') {
-    console.log(`${chalk.bold.green(title)} ${chalk.green(msg)}`);
-}
+const STATES = [ 'pendiente', 'en progreso', 'terminada' ];
 
 function all() {
-    let tasks = jsonToTasks();
+    let tasks = json.readTasks();
     tasks.forEach(e => {
-        shortPrintTask(e);
+        print.short(e);
     });
 }
 
 function find(title) {
-    let tasks = jsonToTasks();
+    let tasks = json.readTasks();
     let foundIndex = tasks.findIndex(t => t.titulo == title);
     return foundIndex;
 }
@@ -56,7 +20,7 @@ function find(title) {
 function create(title, description = '', state = 'pendiente' ) {
     // validar
     if(!title) {
-        error('Debe ingresar una tarea válida');
+        message.error('Debe ingresar una tarea válida');
         return;
     }
 
@@ -66,67 +30,67 @@ function create(title, description = '', state = 'pendiente' ) {
         estado: state
     };
 
-    let tasks = jsonToTasks();
+    let tasks = json.readTasks();
     tasks.push(newTask);
 
-    tasksToJSON(tasks);
-    info('Tarea creada');
+    json.writeTasks(tasks);
+    message.info('Tarea creada');
 }
 
 function toDone(title) {
     // validar
     if(!title || find(title) == -1) {
-        error('Debe ingresar una tarea válida');
+        message.error('Debe ingresar una tarea válida');
         return;
     }
 
-    let tasks = jsonToTasks();
+    let tasks = json.readTasks();
     tasks.map(t => {
         if(t.titulo === title)
             t.estado = 'terminada';
     });
 
-    tasksToJSON(tasks);
-    info('Tarea completada');
+    json.writeTasks(tasks);
+    message.info('Tarea completada');
 }
 
 function remove(title) {
     // validar
     if(!title) {
-        error('Debe ingresar una tarea válida');
+        message.error('Debe ingresar una tarea válida');
         return;
     }
 
-    let tasks = jsonToTasks();
+    let tasks = json.readTasks();
     let cleanTasks  = tasks.filter(t => t.titulo !== title);
     if (cleanTasks.length < tasks.length) {
-        tasksToJSON(cleanTasks);
-        info('Tarea borrada');
+        json.writeTasks(cleanTasks);
+        message.info('Tarea borrada');
     } else {
-        error('No existe la tarea');
+        message.error('No existe la tarea');
     }
 }
 
 function list(state) {
     if(!state) {
         all();
-    } else if(!states.hasOwnProperty(state)) {
-        error('Debe ingresar un estado válido');
+    } else if(STATES.indexOf(state) == -1) {
+        message.error('Debe ingresar un estado válido');
     } else {
-        let tasks = jsonToTasks();
+        let tasks = json.readTasks();
         let tasksFiltradas = tasks.filter(t => t.estado == state);
         tasksFiltradas.forEach(e => {
-            shortPrintTask(e);
+            print.short(e);
         });
     }
 }
 
 function show(title) {
-    let tasks = jsonToTasks();
+    let tasks = json.readTasks();
     let foundIndex = find(title);
-    foundIndex != -1 ? longPrintTask(tasks[foundIndex]) : error('No existe la tarea');
+    foundIndex != -1 ? print.long(tasks[foundIndex]) : message.error('No existe la tarea');
 }
 
 module.exports = {
-    create, toDone, remove, list, show, error
+    create, toDone, remove, list, show
 };
