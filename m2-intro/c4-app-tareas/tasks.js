@@ -41,6 +41,7 @@ function info(msg, title = 'Enhorabuena!!') {
 }
 
 function all() {
+<<<<<<< ours
     let tasks = jsonToTasks();
     tasks.forEach(e => {
         shortPrintTask(e);
@@ -49,6 +50,13 @@ function all() {
 
 function find(title) {
     let tasks = jsonToTasks();
+=======
+    return json.readTasks();
+}
+
+function findIndex(title) {
+    let tasks = json.readTasks();
+>>>>>>> theirs
     let foundIndex = tasks.findIndex(t => t.titulo == title);
     return foundIndex;
 }
@@ -56,6 +64,7 @@ function find(title) {
 function create(title, description = '', state = 'pendiente' ) {
     // validar
     if(!title) {
+<<<<<<< ours
         error('Debe ingresar una tarea válida');
         return;
     }
@@ -67,6 +76,15 @@ function create(title, description = '', state = 'pendiente' ) {
     };
 
     let tasks = jsonToTasks();
+=======
+        message.error('Debe ingresar una tarea válida');
+        throw 
+        return false;
+    }
+
+    let newTask = { titulo: title, descripcion: description, estado: state };
+    let tasks = json.readTasks();
+>>>>>>> theirs
     tasks.push(newTask);
 
     tasksToJSON(tasks);
@@ -75,8 +93,13 @@ function create(title, description = '', state = 'pendiente' ) {
 
 function toDone(title) {
     // validar
+<<<<<<< ours
     if(!title || find(title) == -1) {
         error('Debe ingresar una tarea válida');
+=======
+    if(!title || findIndex(title) == -1) {
+        message.error('Debe ingresar una tarea válida');
+>>>>>>> theirs
         return;
     }
 
@@ -109,9 +132,15 @@ function remove(title) {
 
 function list(state) {
     if(!state) {
+<<<<<<< ours
         all();
     } else if(!states.hasOwnProperty(state)) {
         error('Debe ingresar un estado válido');
+=======
+        return all();
+    } else if(STATES.indexOf(state) == -1) {
+        message.error('Debe ingresar un estado válido');
+>>>>>>> theirs
     } else {
         let tasks = jsonToTasks();
         let tasksFiltradas = tasks.filter(t => t.estado == state);
@@ -122,10 +151,22 @@ function list(state) {
 }
 
 function show(title) {
+<<<<<<< ours
     let tasks = jsonToTasks();
     let foundIndex = find(title);
     foundIndex != -1 ? longPrintTask(tasks[foundIndex]) : error('No existe la tarea');
+=======
+    let tasks = json.readTasks();
+    let foundIndex = findIndex(title);
+    foundIndex != -1 ? print.long(tasks[foundIndex]) : message.error('No existe la tarea');
+>>>>>>> theirs
 }
+
+function TaskError(message){
+    this.message = message;
+}
+
+MyError.prototype = new Error();
 
 module.exports = {
     create, toDone, remove, list, show, error
