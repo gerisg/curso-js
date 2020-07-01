@@ -33,6 +33,17 @@ const DEFAULT = {
     }
 };
 
+function buildStateColors(sc) {
+    let stateColors = {};
+    for (const key in sc) {
+        if (sc.hasOwnProperty(key)) {
+            const element = sc[key];
+            stateColors[key] = COLORS[element];
+        }
+    }
+    return stateColors;
+}
+
 function read() {
     if (!fs.existsSync(CONFIG_FILE)) {
         let config = {};
@@ -44,17 +55,6 @@ function read() {
     const config = JSON.parse(fs.readFileSync(CONFIG_FILE, 'utf-8'));
     config.state_colors = buildStateColors(config.state_colors);
     return config;
-}
-
-function buildStateColors(sc) {
-    let stateColors = {};
-    for (const key in sc) {
-        if (sc.hasOwnProperty(key)) {
-            const element = sc[key];
-            stateColors[key] = COLORS[element];
-        }
-    }
-    return stateColors;
 }
 
 function write(config) {

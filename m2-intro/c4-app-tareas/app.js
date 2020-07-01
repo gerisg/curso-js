@@ -20,6 +20,7 @@ function config(config, debug = false) {
         }
         message.info('Estados: ' + colorsMsg.join(', '), '');
     }
+    return SUCCESS;
 }
 
 function execute(action, params) {
