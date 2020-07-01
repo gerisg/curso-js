@@ -5,13 +5,10 @@ const print = require('./formatter');
 const STATES = [ 'pendiente', 'en progreso', 'terminada' ];
 
 function all() {
-    let tasks = json.readTasks();
-    tasks.forEach(e => {
-        print.short(e);
-    });
+    return json.readTasks();
 }
 
-function find(title) {
+function findIndex(title) {
     let tasks = json.readTasks();
     let foundIndex = tasks.findIndex(t => t.titulo == title);
     return foundIndex;
@@ -21,15 +18,11 @@ function create(title, description = '', state = 'pendiente' ) {
     // validar
     if(!title) {
         message.error('Debe ingresar una tarea válida');
-        return;
+        throw 
+        return false;
     }
 
-    let newTask = {
-        titulo: title,
-        descripcion: description,
-        estado: state
-    };
-
+    let newTask = { titulo: title, descripcion: description, estado: state };
     let tasks = json.readTasks();
     tasks.push(newTask);
 
@@ -39,7 +32,7 @@ function create(title, description = '', state = 'pendiente' ) {
 
 function toDone(title) {
     // validar
-    if(!title || find(title) == -1) {
+    if(!title || findIndex(title) == -1) {
         message.error('Debe ingresar una tarea válida');
         return;
     }
@@ -73,7 +66,7 @@ function remove(title) {
 
 function list(state) {
     if(!state) {
-        all();
+        return all();
     } else if(STATES.indexOf(state) == -1) {
         message.error('Debe ingresar un estado válido');
     } else {
@@ -87,9 +80,15 @@ function list(state) {
 
 function show(title) {
     let tasks = json.readTasks();
-    let foundIndex = find(title);
+    let foundIndex = findIndex(title);
     foundIndex != -1 ? print.long(tasks[foundIndex]) : message.error('No existe la tarea');
 }
+
+function TaskError(message){
+    this.message = message;
+}
+
+MyError.prototype = new Error();
 
 module.exports = {
     create, toDone, remove, list, show
