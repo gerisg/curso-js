@@ -1,15 +1,16 @@
-const json = require('./jsonTasks');
+const repository = require('./jsonTasks');
 const message = require('./message');
-const print = require('./formatter');
+const TasksError = require('./tasksError');
 
 const STATES = [ 'pendiente', 'en progreso', 'terminada' ];
+const SUCCESS = 0; // Exit code successful
 
-function all() {
-    return json.readTasks();
+function _all() {
+    return repository.readTasks();
 }
 
-function findIndex(title) {
-    let tasks = json.readTasks();
+function _findIndex(title) {
+    let tasks = repository.readTasks();
     let foundIndex = tasks.findIndex(t => t.titulo == title);
     return foundIndex;
 }
@@ -17,79 +18,76 @@ function findIndex(title) {
 function create(title, description = '', state = 'pendiente' ) {
     // validar
     if(!title) {
-        message.error('Debe ingresar una tarea válida');
-        throw 
-        return false;
+        throw new TasksError('Debe ingresar una tarea válida');
     }
 
     let newTask = { titulo: title, descripcion: description, estado: state };
-    let tasks = json.readTasks();
+    let tasks = repository.readTasks();
     tasks.push(newTask);
 
-    json.writeTasks(tasks);
+    repository.writeTasks(tasks);
     message.info('Tarea creada');
+
+    return SUCCESS;
 }
 
 function toDone(title) {
     // validar
-    if(!title || findIndex(title) == -1) {
-        message.error('Debe ingresar una tarea válida');
-        return;
+    if(!title || _findIndex(title) == -1) {
+        throw new TasksError('Debe ingresar una tarea válida');
     }
 
-    let tasks = json.readTasks();
+    let tasks = repository.readTasks();
     tasks.map(t => {
         if(t.titulo === title)
             t.estado = 'terminada';
     });
 
-    json.writeTasks(tasks);
+    repository.writeTasks(tasks);
     message.info('Tarea completada');
+
+    return SUCCESS;
 }
 
 function remove(title) {
     // validar
     if(!title) {
-        message.error('Debe ingresar una tarea válida');
-        return;
+        throw new TasksError('Debe ingresar una tarea válida');
     }
 
-    let tasks = json.readTasks();
+    let tasks = repository.readTasks();
     let cleanTasks  = tasks.filter(t => t.titulo !== title);
-    if (cleanTasks.length < tasks.length) {
-        json.writeTasks(cleanTasks);
-        message.info('Tarea borrada');
-    } else {
-        message.error('No existe la tarea');
+    if (cleanTasks.length == tasks.length) {
+        throw new TasksError('No existe la tarea');
     }
+
+    repository.writeTasks(cleanTasks);
+    message.info('Tarea borrada');
+    return SUCCESS;
 }
 
 function list(state) {
+    let listOfTasks = [];
     if(!state) {
-        return all();
+        listOfTasks = _all();
     } else if(STATES.indexOf(state) == -1) {
-        message.error('Debe ingresar un estado válido');
+        throw new TasksError('Debe ingresar un estado válido');
     } else {
-        let tasks = json.readTasks();
-        let tasksFiltradas = tasks.filter(t => t.estado == state);
-        tasksFiltradas.forEach(e => {
-            print.short(e);
-        });
+        let tasks = repository.readTasks();
+        listOfTasks = tasks.filter(t => t.estado == state);
     }
+    return listOfTasks;
 }
 
-function show(title) {
-    let tasks = json.readTasks();
-    let foundIndex = findIndex(title);
-    foundIndex != -1 ? print.long(tasks[foundIndex]) : message.error('No existe la tarea');
+function get(title) {
+    let tasks = repository.readTasks();
+    let foundIndex = _findIndex(title);
+    if (foundIndex == -1) {
+        throw new TasksError('No existe la tarea');
+    }
+    return tasks[foundIndex];
 }
-
-function TaskError(message){
-    this.message = message;
-}
-
-MyError.prototype = new Error();
 
 module.exports = {
-    create, toDone, remove, list, show
+    create, toDone, remove, list, get
 };
