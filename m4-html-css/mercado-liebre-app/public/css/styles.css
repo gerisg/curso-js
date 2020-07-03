@@ -1,0 +1,80 @@
+/* Colores */
+:root {
+    --yellow: #EAC926;
+    --blue: #03264C;
+    --light-blue: #1259c3;
+    --dark-gray: #666;
+    --light-gray: #ebebeb;
+    --green: #39b54a;
+}
+
+/* Tipografía */
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+/* Header */
+.header {
+    background-color: var(--yellow);
+}
+.header .main-paragraph {
+    font-size: 12px;
+}
+.header .navbar ul li {
+    list-style-type: none;
+}
+.header .navbar ul li a {
+    color: black;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+/* Banner */
+.main-banner img {
+    width: 375px;
+}
+
+/* Products */
+.products {
+    background-color: var(--light-gray);
+    color: var(--dark-gray);
+    font-weight: bold;
+}
+.products .title {
+    font-size: 24px;
+}
+
+/* Product */
+.product {
+    background-color: white;
+    font-weight: bold;
+}
+.product img {
+    width: 375px;
+}
+.product i {
+    color: var(--green);
+}
+.product .price {
+    font-size: 18px;
+    color: var(--dark-gray);
+}
+.product .discount {
+    font-size: 16px;
+    color: var(--green);
+}
+.product .description {
+    font-size: 16px;
+    color: var(--dark-gray);
+}
+
+/* Info */
+.info i {
+    color: var(--light-blue);
+}
+.info h3 {
+    color: var(--dark-gray);
+}
+.info p {
+    color: var(--dark-gray);
+}
