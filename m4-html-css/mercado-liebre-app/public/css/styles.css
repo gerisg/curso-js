@@ -4,7 +4,7 @@
     --blue: #03264C;
     --light-blue: #1259c3;
     --dark-gray: #666;
-    --light-gray: #ebebeb;
+    --light-gray: #cac1c1;
     --green: #39b54a;
 }
 
@@ -69,12 +69,15 @@ body {
 }
 
 /* Info */
-.info i {
+.footer .info i {
     color: var(--light-blue);
 }
-.info h3 {
+.footer .info h3 {
     color: var(--dark-gray);
 }
-.info p {
+.footer .info p {
     color: var(--dark-gray);
 }
+
+/* Register */
+
