@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Práctica Extra Formularios</title>
+</head>
+<body>
+    <!-- form -->
+    <form action="">
+
+        <!-- input Nombre -->
+        <label for="name">Nombre</label>
+        <input type="text" id="name" placeholder="Escribi tu nombre" required>
+        <br>
+        <hr>
+
+        <!-- input Color -->
+        <label for="color">color de Fondo</label>
+        <input type="color" name="color" id="color">
+        <br>
+        <hr>
+        
+        <!--  Text Area -->
+        <textarea name="textarea" id="textarea" maxlength="280" cols="40" rows="5" placeholder="Escribi un texto"></textarea>
+        <br>
+        <hr>
+
+        <!-- input Select -->
+        <select name="select" id="select" size="6" multiple>
+            <option value="1">valor 1</option>
+            <option value="2">valor 2</option>
+            <option value="3">valor 3</option>
+            <option value="4">valor 4</option>
+            <option value="5">valor 5</option>
+            <option value="6">valor 6</option>
+        </select>
+        <br>
+        <hr>
+
+        <!-- input Radio Button -->
+        <label>¿Te gusta programar?</label>
+        <input type="radio" id="dev-yes" name="programar" value="yes" checked>
+        <label for="dev-yes">Sí</label>
+        <input type="radio" id="dev-no" name="programar" value="no">
+        <label for="dev-no">No</label>
+        <br>
+        <hr>
+
+        <!-- input Fecha -->
+        <label for="date">Selecciona una fecha:</label>
+        <input type="date" name="date" id="date">
+        <br>
+        <hr>
+
+        <!-- input con name="deshabilitado" -->
+        <label for="deshabilitado"></label>
+        <input type="text" name="deshabilitado" placeholder="Este campo esta deshabilitado" disabled>
+        <br>
+        <hr>
+
+        <!-- button reset -->
+        <input type="reset" value="Reset">
+    </form>
+
+    <script src="script.js"></script>
+</body>
+</html>
