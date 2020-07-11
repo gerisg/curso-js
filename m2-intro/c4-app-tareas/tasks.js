@@ -1,19 +1,7 @@
 const repository = require('./jsonTasks');
-const message = require('./message');
 const TasksError = require('./tasksError');
 
 const STATES = [ 'pendiente', 'en progreso', 'terminada' ];
-const SUCCESS = 0; // Exit code successful
-
-function _all() {
-    return repository.readTasks();
-}
-
-function _findIndex(title) {
-    let tasks = repository.readTasks();
-    let foundIndex = tasks.findIndex(t => t.titulo == title);
-    return foundIndex;
-}
 
 function create(title, description = '', state = 'pendiente' ) {
     // validar
@@ -26,27 +14,21 @@ function create(title, description = '', state = 'pendiente' ) {
     tasks.push(newTask);
 
     repository.writeTasks(tasks);
-    message.info('Tarea creada');
-
-    return SUCCESS;
+    return _response('Tarea creada', newTask);
 }
 
 function toDone(title) {
     // validar
-    if(!title || _findIndex(title) == -1) {
+    const index = _findIndex(title);
+    if(!title || index == -1) {
         throw new TasksError('Debe ingresar una tarea válida');
     }
 
     let tasks = repository.readTasks();
-    tasks.map(t => {
-        if(t.titulo === title)
-            t.estado = 'terminada';
-    });
+    tasks[index].estado ='terminada';
 
     repository.writeTasks(tasks);
-    message.info('Tarea completada');
-
-    return SUCCESS;
+    return _response('Tarea completada', tasks[index]);
 }
 
 function remove(title) {
@@ -62,8 +44,7 @@ function remove(title) {
     }
 
     repository.writeTasks(cleanTasks);
-    message.info('Tarea borrada');
-    return SUCCESS;
+    return _response('Tarea borrada');;
 }
 
 function list(state) {
@@ -76,7 +57,7 @@ function list(state) {
         let tasks = repository.readTasks();
         listOfTasks = tasks.filter(t => t.estado == state);
     }
-    return listOfTasks;
+    return _response(listOfTasks.length + ' tareas encontradas', listOfTasks);
 }
 
 function get(title) {
@@ -85,7 +66,25 @@ function get(title) {
     if (foundIndex == -1) {
         throw new TasksError('No existe la tarea');
     }
-    return tasks[foundIndex];
+    return _response('Tarea encontrada', tasks[foundIndex]);
+}
+
+
+function _response(message, value = []) {
+    return {
+        message: message,
+        value: value
+    }
+}
+
+function _all() {
+    return repository.readTasks();
+}
+
+function _findIndex(title) {
+    let tasks = repository.readTasks();
+    let foundIndex = tasks.findIndex(t => t.titulo == title);
+    return foundIndex;
 }
 
 module.exports = {

@@ -3,9 +3,6 @@ const message = require('./message');
 const print = require('./formatter');
 const configuration = require('./configuration');
 
-const SUCCESS = 0;
-const ERROR = 1;
-
 function config(config, debug = false) {
     configuration.write(config);
     if (debug) {
@@ -20,11 +17,12 @@ function config(config, debug = false) {
         }
         message.info('Estados: ' + colorsMsg.join(', '), '');
     }
-    return SUCCESS;
+    return { message: 'Configuración actualizada', value: 0};
 }
 
 function execute(action, params) {
     try {
+        let response;
         switch (action) {
             case 'crear':
                 // params: [titulo, descripcion, estado]
@@ -38,20 +36,20 @@ function execute(action, params) {
             case undefined:
             case 'listar':
                 // params: estado
-                 let tasks = tareas.list(params[0]);
-                 tasks.forEach(e => print.short(e));
-                 return tasks;
+                 response = tareas.list(params[0]);
+                 response.value.forEach(e => print.short(e));
+                 return response;
             case 'detalle':
                 // params: titulo
-                let task = tareas.get(params[0]);
-                print.long(task);
-                return task;
+                response = tareas.get(params[0]);
+                print.long(response.value);
+                return response;
             default:
                 throw new Error('Operación no válida');
         }
     } catch (err) {
         message.error(err.message);
-        return ERROR;
+        return { message: err.message, value: 1 };
     }
 }
 
