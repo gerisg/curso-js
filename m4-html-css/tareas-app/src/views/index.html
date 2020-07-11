@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task App</title>
+</head>
+<body>
+    <h1>Task App</h1>
+    <h2>Menu</h2>
+
+    <form action="/task" method="POST">
+        <label for="title"></label>
+        <input type="text" id="title" name="title" required>
+        <br>
+        <label for="description"></label>
+        <input type="text" id="description" name="description">
+        <br>
+        <select name="status" id="status">
+            <option value="0">Pendiente</option>
+            <option value="1">En Progreso</option>
+            <option value="2">Terminada</option>
+        </select>
+        <br>
+        <button type="reset">Borrar</button>
+        <button type="submit">Enviar</button>
+    </form>
+</body>
+</html>
