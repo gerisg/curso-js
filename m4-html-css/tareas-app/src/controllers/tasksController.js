@@ -32,6 +32,7 @@ function toDone(title) {
 }
 
 function remove(title) {
+    console.log(title);
     // validar
     if(!title) {
         throw new TasksError('Debe ingresar una tarea válida');

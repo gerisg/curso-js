@@ -7,8 +7,8 @@
 </head>
 <body>
     <h1>Task App</h1>
-    <h2>Menu</h2>
-
+    
+    <h2>Crear una tarea</h2>
     <form action="/task" method="POST">
         <label for="title"></label>
         <input type="text" id="title" name="title" required>
@@ -22,8 +22,17 @@
             <option value="2">Terminada</option>
         </select>
         <br>
-        <button type="reset">Borrar</button>
-        <button type="submit">Enviar</button>
+        <button type="reset">Limpiar</button>
+        <button type="submit">Crear Tarea</button>
+    </form>
+
+    <h2>Eliminar una tarea</h2>
+    <form action="/task/delete" method="GET">
+        <label for="title-del"></label>
+        <input type="text" id="title-del" name="title" required>
+        <br>
+        <button type="reset">Limpiar</button>
+        <button type="submit">Borrar Tarea</button>
     </form>
 </body>
 </html>

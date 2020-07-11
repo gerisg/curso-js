@@ -13,6 +13,10 @@ app.get('/', (req, res) => {
     response.value.forEach(e => console.log(e));
     res.sendFile(__dirname + '/views/index.html');
 })
+.get('/task/delete', (req, res) => {
+    tasks.remove(req.query.title);
+    res.sendFile(__dirname + '/views/index.html');
+})
 .get('/task', (req, res) => {
     let response = tasks.get(params[0]);
     console.log(response.value);
@@ -26,11 +30,6 @@ app.get('/', (req, res) => {
 .post('/task', (req, res) => {
     let response = tasks.create(req.body);
     console.log(response.message);
-    res.sendFile(__dirname + '/views/index.html');
-})
-.delete('/task', (req, res) => {
-    let data = JSON.stringify(req.body, null, ' ');
-    tasks.remove(data);
     res.sendFile(__dirname + '/views/index.html');
 })
 
