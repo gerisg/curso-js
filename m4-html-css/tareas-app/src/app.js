@@ -26,7 +26,7 @@ app.get('/', (req, res) => {
 .post('/task', (req, res) => {
     let response = tasks.create(req.body);
     console.log(response.message);
-    res.render(__dirname + '/views/index.html');
+    res.sendFile(__dirname + '/views/index.html');
 })
 .delete('/task', (req, res) => {
     let data = JSON.stringify(req.body, null, ' ');
