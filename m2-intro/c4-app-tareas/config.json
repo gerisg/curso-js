@@ -1,8 +1,0 @@
-{
- "filename": "/home/ggallardo/workspace/curso-js/m2-intro/c4-app-tareas/tareas.json",
- "state_colors": {
-  "pendiente": "red",
-  "en progreso": "blueBright",
-  "terminada": "blue"
- }
-}
