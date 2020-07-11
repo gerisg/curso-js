@@ -1,0 +1,22 @@
+body {
+    display:flex;
+    justify-content: center;
+    font-family: sans-serif;
+}
+textarea {
+    color:salmon;
+    resize: none;
+}
+textarea:focus {
+    color: black;
+    background-color: lightseagreen;
+}
+input {
+    margin:10px;
+}
+select {
+    width: 340px;
+}
+select > option:nth-child(even) {
+    background-color: pink;
+}
