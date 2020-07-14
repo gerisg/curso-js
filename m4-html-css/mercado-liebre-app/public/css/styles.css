@@ -14,16 +14,16 @@ body {
 }
 
 /* Header */
-.header {
+header {
     background-color: var(--yellow);
 }
-.header .main-paragraph {
+header .main-paragraph {
     font-size: 12px;
 }
-.header .navbar ul li {
+header .navbar ul li {
     list-style-type: none;
 }
-.header .navbar ul li a {
+header .navbar ul li a {
     color: black;
     text-decoration: none;
     font-size: 16px;
@@ -69,15 +69,12 @@ body {
 }
 
 /* Info */
-.footer .info i {
+footer .info i {
     color: var(--light-blue);
 }
-.footer .info h3 {
+footer .info h3 {
     color: var(--dark-gray);
 }
-.footer .info p {
+footer .info p {
     color: var(--dark-gray);
 }
-
-/* Register */
-
