@@ -1,3 +1,10 @@
+/* All elements */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 /* Colores */
 :root {
     --yellow: #EAC926;
@@ -17,10 +24,34 @@ body {
 header {
     background-color: var(--yellow);
 }
+header .logo {
+    width: 50%;
+}
+header .search {
+    width: 50%;
+}
 header .main-paragraph {
     font-size: 12px;
 }
+header .btn-menu {
+    text-align: center;
+}
+header .btn-menu i {
+    width: 40px;
+    height: 40px;
+    background-color: #0044AA;
+    color: white;
+    font-size: 20px;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 20px 0;
+}
+header .btn-menu i:hover {
+    background-color: #0022AA;
+    cursor: pointer;
+}
 header .navbar ul li {
+    display: none;
     list-style-type: none;
 }
 header .navbar ul li a {
@@ -31,44 +62,97 @@ header .navbar ul li a {
 
 /* Banner */
 .main-banner img {
-    width: 375px;
+    display: block;
+    width: 100%;
 }
 
-/* Products */
-.products {
+/* Main */
+main {
     background-color: var(--light-gray);
+    padding: 10px 0px;
+}
+main .title {
+    width: 90%;
+    margin: 20px auto;
     color: var(--dark-gray);
+}
+
+/* Section Products */
+section.products .title {
+    font-size: 24px;
     font-weight: bold;
 }
-.products .title {
-    font-size: 24px;
-}
 
-/* Product */
-.product {
+/* Article Product */
+article.product {
     background-color: white;
     font-weight: bold;
+    margin: 20px;
+    padding: 15px;
 }
-.product img {
-    width: 375px;
+article.product:first-of-type  {
+    margin-top: 0px;
 }
-.product i {
+article.product:last-of-type  {
+    margin-bottom: 0px;
+}
+article.product img {
+    width: 100%;
+}
+article.product i {
     color: var(--green);
+    padding: 4px;
+    border-radius: 12px;
+    border: 1px solid var(--green);
 }
-.product .price {
+article.product .price {
     font-size: 18px;
     color: var(--dark-gray);
 }
-.product .discount {
+article.product .discount {
     font-size: 16px;
     color: var(--green);
 }
-.product .description {
+article.product .description {
     font-size: 16px;
     color: var(--dark-gray);
 }
 
-/* Info */
+/* Main Login */
+main.login, main.register {
+    padding: 10px 20px;
+}
+main.login input, main.register input {
+    width: 100%;
+    padding: 10px;
+    margin: 20px 0px;
+    border-radius: 5px;
+    border: 0;
+}
+input[type="submit"] {
+    color: white;
+    background-color: #0044AA;
+}
+input[type="submit"]:hover {
+    background-color: #0022AA;
+}
+input[type="reset"] {
+    color: white;
+    background-color: #AA0044;
+}
+input[type="reset"]:hover {
+    background-color: #CC1155;
+}
+
+/* Footer */
+footer {
+    padding: 20px 5px;
+}
+
+footer .info {
+    margin: 20px;
+}
+
 footer .info i {
     color: var(--light-blue);
 }
