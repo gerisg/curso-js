@@ -1,0 +1,132 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: sans-serif;
+    color: #666666;
+    margin: 0;
+    background-color: #eee;
+    /* min-height: 100vh; 100% del view port */
+}
+
+/* HEADER */ 
+
+i {
+    margin: 6px 12px;
+    color: #666;
+    font-size: 18px;
+}
+
+header {
+    display: flex;
+    padding: 12px;
+    background-color: white;
+    align-items: center;
+    /* justify-content: space-between; */
+}
+
+header .start {
+    display: flex;
+    align-items: center;
+}
+
+header .start .logo {
+    /* display: inline-block;  lo convierte en linea */
+    font-weight: bold;
+} 
+
+header .center {
+    flex-grow: 1;
+    text-align: center;
+}
+
+header .center input,
+header .center button {
+    padding: 6px;
+    border-radius: 0;
+    border: 1px solid #ccc;
+}
+
+header .center i {
+    margin: 0;
+    font-size: 14px;
+}
+
+header .center button {
+}
+
+header .end {
+    display: flex;
+    align-items: center;
+}
+
+.profile-img {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%; 
+}
+
+.container {
+    display: flex;
+    max-width: 1280px;
+    margin: 0 auto; /* Centrar cuando tiene un ancho determinado */
+    background-color: #eee;
+}
+
+main {
+    width: 70%;
+    margin: 24px;
+}
+
+.video-player {
+    overflow: hidden;
+    height: 0;
+    padding-top: 56.25%;
+    background-color: black;
+}
+
+aside {
+    margin: 24px 0;
+    width: 30%;
+}
+
+.video-container {}
+    .video-img { position: relative; }
+        .video-img img { 
+            width: 100%;
+        }
+        .video-play {
+            position: absolute;
+            width: 36px;
+            height: 36px;
+            text-align: center;
+            line-height: 36px;
+            left: calc(50% - 18px);
+            bottom: calc(50% - 18px);
+        }
+            .video-play i {
+                font-size: 20px;
+                color: #ccc; 
+            }
+        .video-actions {
+            position: absolute;
+            right: 0px;
+            top: 0px;
+            display: flex;
+            flex-direction: column;
+        }
+            .video-actions i {
+                display: none;
+                width: 30px;
+                height: 30px;
+                background-color: #333;
+                border-radius: 3px;
+                color: white;
+                text-align: center;
+                line-height: 30px;
+            }
+
+            .video-container:hover .video-actions i {
+                display: flex;
+            }
