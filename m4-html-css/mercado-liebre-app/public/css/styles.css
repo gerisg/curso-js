@@ -220,7 +220,6 @@ input[type="checkbox"], input[type="radio"] {
 footer {
     padding: 1.25rem .3rem;
     text-align: center;
-    
 }
 footer .info {
     margin: 1rem;
@@ -234,6 +233,7 @@ footer .info {
     footer>p {
         color: var(--light-gray);   
         font-size: .8rem;
+        margin-top: 1rem;
     }
 
 /* Desktop */
@@ -268,5 +268,19 @@ footer .info {
     }
     .product:last-of-type {
         margin-bottom: 1.25rem;
+    }
+}
+
+@media (min-width: 1025px) {
+    .product {
+        width: calc(25% - 2.5rem);
+    }
+    footer {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    footer .info {
+        width: calc(33.333333% - 2rem)
     }
 }
