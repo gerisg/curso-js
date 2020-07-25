@@ -176,10 +176,10 @@ main .title {
 }
 
 /* Main Login */
-main.login, main.register {
+.login, .register {
     padding: .75rem 1.25rem;
 }
-main.login input, main.register input {
+.login input, .register input {
     width: 100%;
     padding: .75rem;
     margin: 1.25rem 0;
@@ -269,6 +269,10 @@ footer .info {
     .product:last-of-type {
         margin-bottom: 1.25rem;
     }
+    .login, .register {
+        max-width: 75%;
+        margin: 0 auto;
+    }
 }
 
 @media (min-width: 1025px) {
@@ -282,5 +286,8 @@ footer .info {
     }
     footer .info {
         width: calc(33.333333% - 2rem)
+    }
+    .login, .register {
+        max-width: 50%;
     }
 }
