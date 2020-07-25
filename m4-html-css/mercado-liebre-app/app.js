@@ -17,4 +17,4 @@ app.get('/', (req, res) => {
     res.sendFile(__dirname + '/views/login.html')
 });
 
-app.listen(3000, () => console.log('servidor levantado')); 
+app.listen(3000, () => console.log('servidor levantado'));

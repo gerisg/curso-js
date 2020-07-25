@@ -1,10 +1,3 @@
-/* All elements */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 /* Colores */
 :root {
     --yellow: #EAC926;
@@ -17,59 +10,85 @@
     --light-red: #CC1155;
 }
 
+/* All elements */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 /* Tipografía */
 body {
     font-family: 'Roboto', sans-serif;
 }
 
 /* Header */
-header {
+nav {
     background-color: var(--yellow);
+    padding: 1rem;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    align-items: center;
 }
-header .logo {
-    width: 50%;
+nav .nav-logo {
+    width: 32%;
 }
-header .search {
-    width: 50%;
+nav .nav-search {
+    flex-grow: 1;
 }
-header .search i {
-    padding: 1px;
-    background-color: white;
-    border: 1px solid;
-}
-header .main-paragraph {
+    nav .nav-search form {
+        height: 2.5rem;
+    }
+    .search-box {
+        display: flex;
+        position: relative;
+        background-color: white;
+        align-items: stretch;
+        height: 90%;
+        border: 0;
+        border-radius: 6px;
+        margin: 0 0 0 .5rem;
+        padding: 0 .5rem;
+    }
+        .search-box input {
+            width: 100%;
+            border: 0;
+            font-size: 1rem;
+        }
+        .search-box i {
+            padding: .5rem;
+            background-color: white;
+            color: var(--dark-gray);
+            border: 0;
+            position: absolute;
+            top: 0;
+            right: .25rem;
+        }
+nav .nav-paragraph {
     width: 100%;
-    font-size: 12px;
-}
-header .btn-menu {
+    font-size: 0.75rem;
     text-align: center;
+    margin: 0.75rem 0 0;
 }
-header .btn-menu i {
-    width: 40px;
-    height: 40px;
-    background-color: var(--light-blue);
-    color: white;
-    font-size: 20px;
-    border-radius: 5px;
-    padding: 10px;
-    margin: 20px 0;
+nav .nav-toggler {
+    margin: 1rem 0 0;
 }
-header .btn-menu i:hover {
-    background-color: var(--blue);
-    cursor: pointer;
-}
-header .navbar ul li {
+    nav .nav-toggler button {
+        background-color: var(--light-blue);
+        border-radius: 6px;
+        border: 0;
+    }
+    nav .nav-toggler i {
+        color: white;
+        font-size: 1.25rem;
+        padding: .75rem;
+    }
+    nav .nav-toggler i:hover {
+        background-color: var(--blue);
+        cursor: pointer;
+    }
+nav .nav-collapse {
     display: none;
-    list-style-type: none;
-}
-header .navbar ul li a {
-    color: black;
-    text-decoration: none;
-    font-size: 16px;
 }
 
 /* Banner */
@@ -81,35 +100,37 @@ header .navbar ul li a {
 /* Main */
 main {
     background-color: var(--light-gray);
-    padding: 10px 0px;
+    padding: .5rem 0;
 }
 main .title {
-    width: 90%;
-    margin: 20px auto;
+    margin: 1.25rem;
     color: var(--dark-gray);
+    font-size: 1.5rem;
+    font-weight: bold;
 }
 
 /* Section Products */
-section.products {
+.products {
     display: flex;
     flex-wrap: wrap;
-    justify-content: flex-start;
-    align-items: flex-start;
-}
-section.products .title {
-    font-size: 24px;
-    font-weight: bold;
 }
 
 /* Article Product */
 .product {
     background-color: white;
     font-weight: bold;
-    margin: 0px 20px 20px 20px;
-    padding: 15px;
+    margin: 0 1.25rem 1.25rem 1.25rem;
+    padding: 1rem;
+}
+.product:hover {
+    box-shadow: 0 0 .75rem rgb(100, 100, 100);
+}
+.product:hover .hidden-text,
+.product:focus .hidden-text {
+    display: block;
 }
 .product:last-of-type  {
-    margin-bottom: 0px;
+    margin-bottom: 0;
 }
 .product img {
     width: 100%;
@@ -125,44 +146,44 @@ section.products .title {
 }
 .product-info i {
     color: var(--green);
-    padding: 5px;
-    border-radius: 15px;
+    padding: .4rem;
+    border-radius: 1rem;
     border: 1px solid var(--green);
     position: absolute;
-    top: -15px;
-    right: 15px;
-    width: 30px;
+    top: -1rem;
+    right: 1rem;
+    width: 2rem;
 }
 .product-info p {
-    padding: 10px 20px;
+    padding: .75rem 1.25rem;
 }
 .product-info .price {
-    font-size: 18px;
     color: var(--dark-gray);
-    align-self: flex-end;
-    width: 30%;
+    font-size: 1rem;
+    width: 33.333333%;
 }
 .product-info .discount {
-    font-size: 16px;
     color: var(--green);
-    align-self: flex-end;
-    width: 70%;
+    font-size: 1rem;
+    width: 66.666667%;
 }
 .product-info .description {
-    font-size: 16px;
     color: var(--dark-gray);
-    align-self: flex-end;
+    font-size: 1rem;
+}
+.product-info .hidden-text {
+    display: none;
 }
 
 /* Main Login */
 main.login, main.register {
-    padding: 10px 20px;
+    padding: .75rem 1.25rem;
 }
 main.login input, main.register input {
     width: 100%;
-    padding: 10px;
-    margin: 20px 0px;
-    border-radius: 5px;
+    padding: .75rem;
+    margin: 1.25rem 0;
+    border-radius: 6px;
     border: 0;
 }
 input[type="submit"] {
@@ -189,18 +210,63 @@ input[type="reset"]:hover {
     flex-direction: column;
 }
 .register .profile p, .register .interests p {
-    margin-left: 20px;
+    margin-left: 1.25rem;
 }
 input[type="checkbox"], input[type="radio"] {
-    width: auto !important;
     align-self: center;
 }
 
 /* Footer */
 footer {
-    padding: 20px 5px;
+    padding: 1.25rem .3rem;
+    text-align: center;
+    
 }
 footer .info {
-    margin: 20px;
+    margin: 1rem;
     color: var(--dark-gray);
+}
+    footer .info i {
+        color: var(--light-blue);
+        font-size: 2rem;
+        margin: 1rem;
+    }
+    footer>p {
+        color: var(--light-gray);   
+        font-size: .8rem;
+    }
+
+/* Desktop */
+
+@media (min-width: 769px) {
+    nav .nav-logo {
+        width: 16.666667%;
+    }
+    nav .nav-paragraph {
+        width: 33.333333%;
+    }
+    nav .nav-toggler {
+        display: none;
+    }
+    nav .nav-collapse {
+        flex-grow: 1;
+        display: flex;
+        justify-content: space-between;
+        margin-top: 2rem;
+    }
+        .nav-collapse a {
+            color: var(--dark-gray);
+            font-size: .9rem;
+            text-decoration: none;
+            padding: 0 .5rem;
+        }
+        .nav-collapse .nav-right {
+            align-self: flex-end;
+        }
+    .product {
+        width: calc(50% - 2.5rem);
+    }
+    .product:last-of-type {
+        margin-bottom: 1.25rem;
+    }
 }
