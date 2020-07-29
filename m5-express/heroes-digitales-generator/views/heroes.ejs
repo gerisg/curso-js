@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Héroes Digitales</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1>Listado de Héroes</h1>
+    <p>
+      <% heroes.forEach(hero => { %>
+        <div class="hero">
+          <h2>Nombre: <%= hero.nombre %></h2>
+          <p>País: <%= hero.pais %></p>
+          <p>Profesión: <%= hero.profesion %></p>
+          <p>Reseña: <%= hero.resenia %></p>
+        </div>
+      <% }); %>
+    </p>
+  </body>
+</html>
