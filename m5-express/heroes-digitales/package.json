@@ -1,0 +1,19 @@
+{
+  "name": "heroes",
+  "version": "1.0.0",
+  "description": "M05C01 Heroes",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "startdev": "nodemon app.js"
+  },
+  "keywords": [],
+  "author": "Gerardo Gallardo",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
