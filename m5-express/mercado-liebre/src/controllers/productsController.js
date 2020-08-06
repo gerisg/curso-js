@@ -46,9 +46,18 @@ function find(id) {
 	return products.find(p => p.id == id);
 }
 
+function getPromoPrice(product) {
+	if (product.discount > 0) {
+		let discount = product.price * ((100 - product.discount) / 100);
+		return Math.round(discount);
+	}
+	return product.price;
+}
+
 const controller = {
 	// Root - Show all products
 	index: (req, res) => {
+		products.map(p => p.priceFormatted = toThousand(getPromoPrice(p)));
 		res.render('products', { products });
 	},
 
