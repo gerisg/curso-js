@@ -3,6 +3,7 @@ node_modules/
 jspm_packages/
 tareas.json
 config.json
+m5-express/grupos-json-crud/data/groups.json
 
 # Optional npm cache directory
 .npm
