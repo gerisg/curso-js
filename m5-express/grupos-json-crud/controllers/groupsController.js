@@ -1,40 +1,50 @@
-const groupsModel = require('../database/groupsModel');
+const fs = require('fs');
+const path = require('path');
+const jsonTable = require('../database/jsonTable');
+
+const groupsModel = jsonTable('groups');
+const categoriesModel = jsonTable('categories');
 
 module.exports = {
     index: (req, res) => {
         res.render('groups/index',  { groups: groupsModel.all() });
     },
     create: (req, res) => {
-        res.render('groups/create');
+        let categories = categoriesModel.all();
+        res.render('groups/create', { categories });
     },
     store: (req, res) => {
-        let newGroup = {
-            name: req.body.name,
-            description: req.body.description,
-            repository: req.body.repository,
-            image: null
-        };
-        res.redirect('/groups/' + groupsModel.create(newGroup))
+        let group = req.body;
+        group.image = req.file ? req.file.filename : null;
+        res.redirect('/groups/' + groupsModel.create(group))
     },
     edit: (req, res) => {
-        res.render('groups/edit', { group: groupsModel.find(req.params.id) });
+        let group = groupsModel.find(req.params.id);
+        let categories = categoriesModel.all();
+        res.render('groups/edit', { group, categories });
     },
     update: (req, res) => {
-        let group = {
-            id: req.params.id,
-            name: req.body.name,
-            description: req.body.description,
-            repository: req.body.repository,
-            image: null
-        };
+        let group = req.body;
+        group.id = req.params.id;
+        group.image = req.file ? req.file.filename : req.body.currentImage;
+        delete group.currentImage;
         res.redirect('/groups/' + groupsModel.update(group));
     },
     show: (req, res) => {
-        res.render('groups/detail', { group: groupsModel.find(req.params.id) });
+        let group = groupsModel.find(req.params.id);
+        group.category = categoriesModel.find(group.categoryId).name;
+        res.render('groups/detail', { group });
     },
     destroy: (req, res) => {
+        /* remove image */
+        let group = groupsModel.find(req.params.id);
+        const imagePath = path.join(__dirname, '../public/iimg/groups/' + group.image);
+        if(fs.existsSync(imagePath)) {
+            fs.unlinkSync(imagePath);
+        }
+        /* destroy register */
         groupsModel.delete(req.params.id);
-        res.redirect('/groups')
+        res.redirect('/groups');
     },
     search: (req, res) => {
         let searchTerms = req.query.search;

@@ -9,7 +9,10 @@
                 <div class="columns is-centered">
                     <div class="column is-6">
                         <h1>Editar grupo</h1>
-                        <form action="/groups/<%= group && group.id %>?_method=PUT" method="POST">
+                        <figure><img class="is-rounded" src="/img/groups/<%= group.image %>" alt="" onerror="this.src = 'https://i.pravatar.cc/150?img=2'"></figure>
+                        <form action="/groups/<%= group && group.id %>?_method=PUT" method="POST" enctype="multipart/form-data">
+
+                            <input type="hidden" name="currentImage" value="<%= group.image %>">
 
                             <div class="field">
                                 <label for="name">Nombre</label>
@@ -31,6 +34,30 @@
                                 <label for="name">Repositorio</label>
                                 <div class="control">
                                     <input type="text" name="repository" value="<%= group && group.repository %>">
+                                </div>
+                                <p class="feedback"></p>
+                            </div>
+
+                            <div class="field">
+                                <label for="categoryId">Categoría</label>
+                                <div class="control">
+                                    <select name="categoryId" id="categoryId">
+                                        <% categories.forEach(category => { %>
+                                            <option 
+                                                value="<%= category.id %>"
+                                                <%= group && (group.categoryId == category.id) ? 'selected' : '' %>>
+                                                <%= category.name %>
+                                            </option>
+                                        <% }) %>
+                                    </select>
+                                </div>
+                                <p class="feedback"></p>
+                            </div>
+
+                            <div class="field">
+                                <label for="name">Imagen</label>
+                                <div class="control">
+                                    <input type="file" name="image">
                                 </div>
                                 <p class="feedback"></p>
                             </div>

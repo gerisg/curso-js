@@ -1,0 +1,12 @@
+[
+    {"id":1,"name":"Health"},
+    {"id":2,"name":"Clothing"},
+    {"id":3,"name":"Music"},
+    {"id":4,"name":"Automotive"},
+    {"id":5,"name":"Clothing"},
+    {"id":6,"name":"Toys"},
+    {"id":7,"name":"Garden"},
+    {"id":8,"name":"Home"},
+    {"id":9,"name":"Grocery"},
+    {"id":10,"name":"Tools"}
+]

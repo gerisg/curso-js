@@ -63,10 +63,13 @@ const controller = {
 
 	// Detail - Detail from one product
 	detail: (req, res) => {
-		let productToShow = find(req.params.id);
-		productToShow.priceWithDiscount = toThousand(Math.round(productToShow.price * ((100 - productToShow.discount) / 100))); 
-		productToShow.price = toThousand(productToShow.price);
-		res.render('detail', { product: productToShow });
+		let product = find(req.params.id);
+		product.priceWithDiscount = toThousand(
+			Math.round(product.price * ((100 - product.discount) / 100))
+		); 
+		product.price = toThousand(product.price);
+
+		res.render('detail', { product });
 	},
 
 	// Create - Form to create
