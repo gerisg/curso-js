@@ -23,6 +23,10 @@ module.exports = {
 		res.render('index', { visited, inSale });
 	},
 	search: (req, res) => {
-		// Do the magic
+		let keywords = req.query.keywords;
+		let results = productsModel.findByFields(['name'], keywords);
+		results.map(p => p.priceWithDiscount = toThousand(priceWithDiscount(p)));
+
+		res.render('results', { results, keywords });
 	},
 };
