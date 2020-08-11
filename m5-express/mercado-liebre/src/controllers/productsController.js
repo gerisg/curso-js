@@ -1,3 +1,5 @@
+const path = require('path');
+const fs = require('fs');
 const jsonTable = require('../database/jsonTable');
 
 const productsModel = jsonTable('products');
@@ -34,7 +36,7 @@ module.exports = {
 			discount: parseInt(req.body.discount),
 			category: req.body.category,
 			description: req.body.description,
-			image: null
+			image: req.file ? req.file.filename : null
 		}
 		let id = productsModel.create(product);
 		res.redirect('/products/' + id);
@@ -51,13 +53,19 @@ module.exports = {
 			discount: parseInt(req.body.discount),
 			category: req.body.category,
 			description: req.body.description,
-			image: null
+			image: req.file ? req.file.filename : req.body.currentImage
 		}
 		let id = productsModel.update(product);
 		res.redirect('/products/' + id);
 	},
 	destroy : (req, res) => {
-		productsModel.remove(req.params.id);
+		let id = req.params.id;
+		/* remove image */
+		let image = productsModel.find(id).image;
+		const imagePath = path.join(__dirname, '../../public/images/products/' + image);
+		fs.existsSync(imagePath) ? fs.unlinkSync(imagePath) : '';
+		/* remove product */
+		productsModel.delete(id);
 		res.redirect('/');
 	}
 };

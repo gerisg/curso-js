@@ -38,7 +38,7 @@ module.exports = {
     destroy: (req, res) => {
         /* remove image */
         let group = groupsModel.find(req.params.id);
-        const imagePath = path.join(__dirname, '../public/iimg/groups/' + group.image);
+        const imagePath = path.join(__dirname, '../public/img/groups/' + group.image);
         if(fs.existsSync(imagePath)) {
             fs.unlinkSync(imagePath);
         }
