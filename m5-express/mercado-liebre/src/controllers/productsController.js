@@ -1,52 +1,10 @@
-const fs = require('fs');
-const path = require('path');
+const jsonTable = require('../database/jsonTable');
 
-const productsFilePath = path.join(__dirname, '../data/productsDataBase.json');
-const products = JSON.parse(fs.readFileSync(productsFilePath, 'utf-8'));
+const productsModel = jsonTable('products');
 
 const toThousand = n => n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 
-function persist() {
-	fs.writeFileSync(productsFilePath, JSON.stringify(products));
-}
-
-function generateID() {
-	return Math.random().toString(36).substr(2, 9);
-}
-
-function update(oldProduct, product) {
-	product.id = oldProduct.id;
-	product.image = oldProduct.image;
-	remove(product.id);
-	save(product);
-	persist();
-}
-
-function remove(id) {
-	let index = products.findIndex(p => p.id == id);
-	if(index != -1) {
-		products.splice(index, 1);
-	}
-}
-
-function save(product) {
-	let newProduct = {
-		id: product.id ? product.id : generateID(),
-		name: product.name,
-		price: product.price,
-		discount: product.discount,
-		category: product.category,
-		description: product.description,
-		image: 'default-image.png'
-	}
-	products.push(newProduct);
-}
-
-function find(id) {
-	return products.find(p => p.id == id);
-}
-
-function getPromoPrice(product) {
+function priceWithDiscount(product) {
 	if (product.discount > 0) {
 		let discount = product.price * ((100 - product.discount) / 100);
 		return Math.round(discount);
@@ -54,54 +12,52 @@ function getPromoPrice(product) {
 	return product.price;
 }
 
-const controller = {
-	// Root - Show all products
+module.exports = {
 	index: (req, res) => {
-		products.map(p => p.priceFormatted = toThousand(getPromoPrice(p)));
+		let products = productsModel.all();
+		products.map(product => product.priceWithDiscount = toThousand(priceWithDiscount(product)));
 		res.render('products', { products });
 	},
-
-	// Detail - Detail from one product
 	detail: (req, res) => {
-		let product = find(req.params.id);
-		product.priceWithDiscount = toThousand(
-			Math.round(product.price * ((100 - product.discount) / 100))
-		); 
+		let product = productsModel.find(req.params.id);
+		product.priceWithDiscount = toThousand(priceWithDiscount(product)); 
 		product.price = toThousand(product.price);
-
 		res.render('detail', { product });
 	},
-
-	// Create - Form to create
 	create: (req, res) => {
-		res.render('product-create-form');
+		res.render('create-form');
 	},
-	
-	// Create -  Method to store
 	store: (req, res) => {
-		save(req.body);
-		persist();
-		res.redirect('/');
+		let product =  {
+			name: req.body.name,
+			price: parseInt(req.body.price),
+			discount: parseInt(req.body.discount),
+			category: req.body.category,
+			description: req.body.description,
+			image: null
+		}
+		let id = productsModel.create(product);
+		res.redirect('/products/' + id);
 	},
-
-	// Update - Form to edit
 	edit: (req, res) => {
-		res.render('product-edit-form', { product: find(req.params.id) });
+		let product = productsModel.find(req.params.id)
+		res.render('edit-form', { product });
 	},
-	// Update - Method to update
 	update: (req, res) => {
-		let oldProduct = find(req.params.id);
-		let newProduct = req.body;
-		update(oldProduct, newProduct);
-		res.redirect('/');
+		let product =  {
+			id: parseInt(req.params.id),
+			name: req.body.name,
+			price: parseInt(req.body.price),
+			discount: parseInt(req.body.discount),
+			category: req.body.category,
+			description: req.body.description,
+			image: null
+		}
+		let id = productsModel.update(product);
+		res.redirect('/products/' + id);
 	},
-
-	// Delete - Delete one product from DB
 	destroy : (req, res) => {
-		remove(req.params.id);
-		persist();
+		productsModel.remove(req.params.id);
 		res.redirect('/');
 	}
 };
-
-module.exports = controller;
