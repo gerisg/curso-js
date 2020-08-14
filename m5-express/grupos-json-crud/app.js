@@ -23,5 +23,11 @@ app.use('/', mainRoutes);
 app.use('/groups', groupsRoutes);
 app.use('/users', usersRoutes);
 
+// Errors
+app.use((req, res, next) => {
+    res.status(404).render('404-page');
+    next();
+});
+
 // Servidor
 app.listen(3000, () => { console.log('Servidor funcionando en el puerto 3000.') })
