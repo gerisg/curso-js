@@ -1,7 +1,8 @@
 const fs = require('fs');
 const path = require('path');
-const jsonTable = require('../database/jsonTable');
+const bcrypt = require('bcryptjs');
 
+const jsonTable = require('../database/jsonTable');
 const usersModel = jsonTable('users');
 
 module.exports = {
@@ -13,6 +14,8 @@ module.exports = {
     },
     store: (req, res) => {
         let user = req.body;
+        // Guardar password encriptado
+        user.password = bcrypt.hashSync(user.password, 10);
         user.image = req.file ? req.file.filename : null;
         res.redirect('/users/' + usersModel.create(user))
     },
@@ -23,6 +26,8 @@ module.exports = {
     update: (req, res) => {
         let user = req.body;
         user.id = req.params.id;
+        user.password = user.password ? bcrypt.hashSync(user.password, 10) : user.currentPass;
+        delete user.currentPass;
         user.image = req.file ? req.file.filename : req.body.currentImage;
         delete user.currentImage;
         res.redirect('/users/' + usersModel.update(user));

@@ -13,6 +13,7 @@
                         <form action="/users/<%= user && user.id %>?_method=PUT" method="POST" enctype="multipart/form-data">
 
                             <input type="hidden" name="currentImage" value="<%= user.image %>">
+                            <input type="hidden" name="currentPass" value="<%= user.password %>">
 
                             <div class="field">
                                 <label for="firstname">Nombre</label>
@@ -41,7 +42,7 @@
                             <div class="field">
                                 <label for="password">Contraseña</label>
                                 <div class="control">
-                                    <input type="password" name="password" value="<%= user && user.password %>">
+                                    <input type="password" name="password">
                                 </div>
                                 <p class="feedback"></p>
                             </div>
