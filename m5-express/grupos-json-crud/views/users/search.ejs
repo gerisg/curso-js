@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<%- include('../partials/head', { title: 'Buscar grupos' }) %>
+<%- include('../partials/head', { title: 'Buscar usuarios' }) %>
 <body>
     <%- include('../partials/header') %>
     <main>
@@ -8,8 +8,8 @@
             <section>
                 <div class="columns is-centered">
                     <div class="column is-6">
-                        <h1>Búsqueda de grupos</h1>
-                        <form action="/groups/search">
+                        <h1>Búsqueda de usuarios</h1>
+                        <form action="/users/search">
                             <div class="field">
                                 <div class="control">
                                     <input 
@@ -23,8 +23,8 @@
                             </div>
                         </form>
                         <hr>
-                        <% groups.forEach(group => { %>
-                            <%- include('group', { group }) %>
+                        <% users.forEach(user => { %>
+                            <%- include('user', { user }) %>
                         <% }) %> 
                     </div>
                 </div>

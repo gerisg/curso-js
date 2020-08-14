@@ -17,9 +17,11 @@ app.use(methodOverride('_method'));
 // Rutas
 const mainRoutes = require('./routes/index');
 const groupsRoutes = require('./routes/groups');
+const usersRoutes = require('./routes/users');
 
 app.use('/', mainRoutes);
 app.use('/groups', groupsRoutes);
+app.use('/users', usersRoutes);
 
 // Servidor
 app.listen(3000, () => { console.log('Servidor funcionando en el puerto 3000.') })

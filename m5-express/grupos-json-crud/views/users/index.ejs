@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-<%- include('../partials/head', { title: 'Listado de Grupos' }) %>
+<%- include('../partials/head', { title: 'Listado de Usuarios' }) %>
 <body>
     <%- include('../partials/header') %>
     <main>
         <div class="container">
-            <% groups.forEach(group => { %>
-                <%- include('group', { group }) %>
+            <% users.forEach(user => { %>
+                <%- include('user', { user }) %>
             <% }) %>
         </div>
     </main>

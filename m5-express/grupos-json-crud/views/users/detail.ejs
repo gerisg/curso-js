@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../partials/head', { title: 'Detalle de usuario' }) %>
+<body>
+    <%- include('../partials/header') %>
+    <main>
+        <% if(user) { %>
+            <%- include('user', { user }) %>
+        <% } else { %>
+            <h2>No encontramos ese usuario</h2>
+        <% } %>
+    </main>
+</body>
+</html>

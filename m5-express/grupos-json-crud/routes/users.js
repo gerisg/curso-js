@@ -1,20 +1,20 @@
 const express = require('express');
 const router = express.Router();
-const controller = require('../controllers/groupsController');
+const controller = require('../controllers/usersController');
 
 const path = require('path');
 const multer = require('multer');
 
 const storage = multer.diskStorage({
-    destination: path.join(__dirname, '../public/img/groups'),
+    destination: path.join(__dirname, '../public/img/users'),
     filename: (req, file, callback) => {
-        callback(null, 'group-' + Date.now() + path.extname(file.originalname));
+        callback(null, 'user-' + Date.now() + path.extname(file.originalname));
     }
 });
 
 const upload = multer({ storage });
 
-// Todos los grupos
+// Todos los usuarios
 router.get('/', controller.index);
 
 // Formulario de búsqueda
@@ -32,10 +32,10 @@ router.get('/:id/edit', controller.edit);
 // Procesamiento del formulario de edicion
 router.put('/:id', upload.single('image'), controller.update);
 
-// Detalle de un grupo - Ojo con el parámetro
+// Detalle de un usuario - Ojo con el parámetro
 router.get('/:id', controller.show);
 
-// Eliminar un grupo
+// Eliminar un usuario
 router.delete('/:id', controller.destroy);
 
 module.exports = router;

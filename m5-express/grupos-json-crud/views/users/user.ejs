@@ -1,0 +1,17 @@
+<article class="card">
+    <div class="card-left">
+        <figure><img src="/img/users/<%= user.image %>" alt="" onerror="this.src = 'https://i.pravatar.cc/150?img=2'"></figure>
+        <h3>#<%= user.id %></h3>
+    </div>
+    <div class="card-content">
+        <h3><%= user.firstname %> <%= user.lastname %></h3>
+        <p>Correo electrónico: <%= user.email %></p>
+        <div>
+            <a class="button" href="/users/<%= user.id %>">Ver detalle</a>
+            <a class="button" href="/users/<%= user.id %>/edit">Editar</a>
+            <form class="form is-inline" action="/users/<%= user.id %>?_method=DELETE" method="POST">
+                <button class="button is-danger" type="submit">Borrar</button>
+            </form>
+        </div>
+    </div>   
+</article>
