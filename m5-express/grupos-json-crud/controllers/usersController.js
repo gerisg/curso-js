@@ -6,6 +6,19 @@ const jsonTable = require('../database/jsonTable');
 const usersModel = jsonTable('users');
 
 module.exports = {
+    loginForm: (req, res) => {
+        res.render('users/login');
+    },
+    login: (req, res) => {
+        let user = usersModel.findByFields(['email'], req.body.email);
+        if(user && user.length != 0 && bcrypt.compareSync(req.body.password, user[0].password)) {
+            return res.send('success login');
+        }
+        return res.send('invalid credentials');
+    },
+    logout: (req, res) => {
+
+    },
     index: (req, res) => {
         res.render('users/index',  { users: usersModel.all() });
     },

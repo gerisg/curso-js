@@ -14,6 +14,11 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
+// Sesión de usuario
+router.get('/login', controller.loginForm);
+router.post('/login', controller.login);
+router.post('/logout', controller.logout);
+
 // Todos los usuarios
 router.get('/', controller.index);
 
