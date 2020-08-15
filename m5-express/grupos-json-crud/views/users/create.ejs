@@ -14,25 +14,37 @@
                             <div class="field">
                                 <label for="firstname">Nombre</label>
                                 <div class="control">
-                                    <input type="text" name="firstname">
+                                    <input type="text" name="firstname"
+                                        value="<%= locals.user ? user.firstname : '' %>"
+                                        class="<%= locals.errors && errors.firstname ? 'is-danger' : '' %>">
                                 </div>
-                                <p class="feedback"></p>
+                                <p class="feedback <%= locals.errors && errors.firstname ? 'is-danger' : '' %>">
+                                    <%= locals.errors && errors.firstname ? errors.firstname.msg : '' %>
+                                </p>
                             </div>
 
                             <div class="field">
                                 <label for="lastname">Apellido</label>
                                 <div class="control">
-                                    <input type="text" name="lastname">
+                                    <input type="text" name="lastname"
+                                        value="<%= locals.user ? user.lastname : '' %>"
+                                        class="<%= locals.errors && errors.lastname ? 'is-danger' : '' %>">
                                 </div>
-                                <p class="feedback"></p>
+                                <p class="feedback <%= locals.errors && errors.lastname ? 'is-danger' : '' %>">
+                                    <%= locals.errors && errors.lastname ? errors.lastname.msg : '' %>
+                                </p>
                             </div>
 
                             <div class="field">
                                 <label for="email">Email</label>
                                 <div class="control">
-                                    <input type="email" name="email">
+                                    <input type="email" name="email"
+                                        value="<%= locals.user ? user.email : '' %>"
+                                        class="<%= locals.errors && errors.email ? 'is-danger' : '' %>">
                                 </div>
-                                <p class="feedback"></p>
+                                <p class="feedback <%= locals.errors && errors.email ? 'is-danger' : '' %>">
+                                    <%= locals.errors && errors.email ? errors.email.msg : '' %>
+                                </p>
                             </div>
 
                             <div class="field">
@@ -40,7 +52,9 @@
                                 <div class="control">
                                     <input type="password" name="password">
                                 </div>
-                                <p class="feedback"></p>
+                                <p class="feedback <%= locals.errors && errors.password ? 'is-danger' : '' %>">
+                                    <%= locals.errors && errors.password ? errors.password.msg : '' %>
+                                </p>
                             </div>
                             
                             <div class="field">
@@ -48,7 +62,6 @@
                                 <div class="control">
                                     <input type="file" name="image">
                                 </div>
-                                <p class="feedback"></p>
                             </div>
 
                             <div class="field">

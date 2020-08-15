@@ -20,7 +20,9 @@
                                 <div class="control">
                                     <input type="text" name="firstname" value="<%= user && user.firstname %>">
                                 </div>
-                                <p class="feedback"></p>
+                                <p class="feedback <%= locals.errors && errors.firstname ? 'is-danger' : '' %>">
+                                    <%= locals.errors && errors.firstname ? errors.firstname.msg : '' %>
+                                </p>
                             </div>
 
                             <div class="field">
@@ -28,7 +30,9 @@
                                 <div class="control">
                                     <input type="text" name="lastname" value="<%= user && user.lastname %>">
                                 </div>
-                                <p class="feedback"></p>
+                                <p class="feedback <%= locals.errors && errors.lastname ? 'is-danger' : '' %>">
+                                    <%= locals.errors && errors.lastname ? errors.lastname.msg : '' %>
+                                </p>
                             </div>
 
                             <div class="field">
@@ -36,7 +40,9 @@
                                 <div class="control">
                                     <input type="email" name="email" value="<%= user && user.email %>">
                                 </div>
-                                <p class="feedback"></p>
+                                <p class="feedback <%= locals.errors && errors.email ? 'is-danger' : '' %>">
+                                    <%= locals.errors && errors.email ? errors.email.msg : '' %>
+                                </p>
                             </div>
 
                             <div class="field">
@@ -44,7 +50,9 @@
                                 <div class="control">
                                     <input type="password" name="password">
                                 </div>
-                                <p class="feedback"></p>
+                                <p class="feedback <%= locals.errors && errors.password ? 'is-danger' : '' %>">
+                                    <%= locals.errors && errors.password ? errors.password.msg : '' %>
+                                </p>
                             </div>
 
                             <div class="field">
@@ -57,7 +65,7 @@
 
                             <div class="field">
                                 <div class="control">
-                                    <button type="submit">Crear usuario</button>
+                                    <button type="submit">Guardar usuario</button>
                                 </div>
                             </div>
 

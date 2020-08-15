@@ -16,7 +16,9 @@
                                 <div class="control">
                                     <input type="email" name="email">
                                 </div>
-                                <p class="feedback"></p>
+                                <p class="feedback <%= locals.errors && errors.email ? 'is-danger' : '' %>">
+                                    <%= locals.errors && errors.email ? errors.email.msg : '' %>
+                                </p>
                             </div>
 
                             <div class="field">
@@ -24,8 +26,14 @@
                                 <div class="control">
                                     <input type="password" name="password">
                                 </div>
-                                <p class="feedback"></p>
+                                <p class="feedback <%= locals.errors && errors.password ? 'is-danger' : '' %>">
+                                    <%= locals.errors && errors.password ? errors.password.msg : '' %>
+                                </p>
                             </div>
+
+                            <p class="feedback <%= locals.errors && errors.form ? 'is-danger' : '' %>">
+                                <%= locals.errors && errors.form ? errors.form.msg : '' %>
+                            </p>
                             
                             <div class="field">
                                 <div class="control">

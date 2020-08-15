@@ -12,20 +12,21 @@
                         <form action="/users/search">
                             <div class="field">
                                 <div class="control">
-                                    <input 
-                                        type="text" 
-                                        name="search" 
-                                        value="<%= search ? search : "" %>"
-                                        placeholder="Ingresa tu búsqueda&hellip;">
+                                    <input type="text" name="search" value="<%= search ? search : "" %>" placeholder="Ingresa tu búsqueda&hellip;">
                                     <button type="submit">Buscar</button>
                                 </div>
-                                <p class="feedback"></p>
+                                <p class="feedback <%= locals.errors && errors.search ? 'is-danger' : '' %> ">
+                                    <%= locals.errors && errors.search ? errors.search.msg : '' %> 
+                                </p>
                             </div>
                         </form>
                         <hr>
-                        <% users.forEach(user => { %>
+                        <% locals.users && users.forEach(user => { %>
                             <%- include('user', { user }) %>
-                        <% }) %> 
+                        <% }) %>
+                        <% if (locals.users && users.length == 0) { %>
+                            <p>No se encontraron usuarios</p>
+                        <% } %>
                     </div>
                 </div>
             </section>
