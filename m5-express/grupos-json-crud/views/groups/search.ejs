@@ -19,13 +19,18 @@
                                         placeholder="Ingresa tu búsqueda&hellip;">
                                     <button type="submit">Buscar</button>
                                 </div>
-                                <p class="feedback"></p>
+                                <p class="feedback <%= locals.errors && errors.search ? 'is-danger' : '' %> ">
+                                    <%= locals.errors && errors.search ? errors.search.msg : '' %> 
+                                </p>
                             </div>
                         </form>
                         <hr>
-                        <% groups.forEach(group => { %>
+                        <% locals.groups && groups.forEach(group => { %>
                             <%- include('group', { group }) %>
-                        <% }) %> 
+                        <% }) %>
+                        <% if (locals.groups && groups.length == 0) { %>
+                            <p>No se encontraron grupos</p>
+                        <% } %>
                     </div>
                 </div>
             </section>

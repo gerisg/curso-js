@@ -17,41 +17,52 @@
                             <div class="field">
                                 <label for="name">Nombre</label>
                                 <div class="control">
-                                    <input type="text" name="name" value="<%= group && group.name %>">
+                                    <input type="text" name="name"
+                                        value="<%= locals.group ? group.name : '' %>"
+                                        class="<%= locals.errors && errors.name ? 'is-danger' : '' %>">
                                 </div>
-                                <p class="feedback"></p>
+                                <p class="feedback <%= locals.errors && errors.name ? 'is-danger' : '' %>">
+                                    <%= locals.errors && errors.name ? errors.name.msg : '' %>
+                                </p>
                             </div>
 
                             <div class="field">
-                                <label for="name">Descripción</label>
+                                <label for="description">Descripción</label>
                                 <div class="control">
-                                    <textarea name="description"><%= group && group.description %></textarea>
+                                    <textarea name="description" class="<%= locals.errors && errors.description ? 'is-danger' : '' %>"><%= locals.group ? group.description : '' %></textarea>
                                 </div>
-                                <p class="feedback"></p>
+                                <p class="feedback <%= locals.errors && errors.description ? 'is-danger' : '' %>">
+                                    <%= locals.errors && errors.description ? errors.description.msg : '' %>
+                                </p>
                             </div>
 
                             <div class="field">
-                                <label for="name">Repositorio</label>
+                                <label for="repository">Repositorio</label>
                                 <div class="control">
-                                    <input type="text" name="repository" value="<%= group && group.repository %>">
+                                    <input type="text" name="repository"
+                                        value="<%= locals.group ? group.repository : '' %>"
+                                        class="<%= locals.errors && errors.repository ? 'is-danger' : '' %>">
                                 </div>
-                                <p class="feedback"></p>
+                                <p class="feedback <%= locals.errors && errors.repository ? 'is-danger' : '' %>">
+                                    <%= locals.errors && errors.repository ? errors.repository.msg : '' %>
+                                </p>
                             </div>
 
                             <div class="field">
                                 <label for="categoryId">Categoría</label>
                                 <div class="control">
-                                    <select name="categoryId" id="categoryId">
+                                    <select name="categoryId" name="categoryId">
+                                        <option value="">Selecciona una categoría</option>
                                         <% categories.forEach(category => { %>
-                                            <option 
-                                                value="<%= category.id %>"
-                                                <%= group && (group.categoryId == category.id) ? 'selected' : '' %>>
+                                            <option value="<%= category.id %>" <%= locals.group && group.categoryId == category.id ? 'selected' : '' %> >
                                                 <%= category.name %>
                                             </option>
                                         <% }) %>
                                     </select>
                                 </div>
-                                <p class="feedback"></p>
+                                <p class="feedback <%= locals.errors && errors.categoryId ? 'is-danger' : '' %>">
+                                    <%= locals.errors && errors.categoryId ? errors.categoryId.msg : '' %>
+                                </p>
                             </div>
 
                             <div class="field">

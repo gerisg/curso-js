@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const redirect = require('../middleware/redirect');
+const validate = require('../validators/groups-validator');
 const controller = require('../controllers/groupsController');
 
 const path = require('path');
@@ -22,19 +23,19 @@ router.get('/', controller.index);
 router.get('/deprecated', redirect);
 
 // Formulario de búsqueda
-router.get('/search', controller.search);
+router.get('/search', validate.searchForm, controller.search);
 
 // Formulario de creación
 router.get('/create', controller.create);
 
 // Procesamiento del formulario de creación
-router.post('/', upload.single('image'), controller.store); // Al middleware le paso el name del input file
+router.post('/', upload.single('image'), validate.createForm, controller.store); // Al middleware le paso el name del input file
 
 // Formulario de edición
 router.get('/:id/edit', controller.edit);
 
 // Procesamiento del formulario de edicion
-router.put('/:id', upload.single('image'), controller.update);
+router.put('/:id', upload.single('image'), validate.createForm, controller.update);
 
 // Detalle de un grupo - Ojo con el parámetro
 router.get('/:id', controller.show);
