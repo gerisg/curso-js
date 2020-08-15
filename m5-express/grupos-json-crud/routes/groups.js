@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const redirect = require('../middleware/redirect');
 const controller = require('../controllers/groupsController');
 
 const path = require('path');
@@ -16,6 +17,9 @@ const upload = multer({ storage });
 
 // Todos los grupos
 router.get('/', controller.index);
+
+// Deprecated example
+router.get('/deprecated', redirect);
 
 // Formulario de búsqueda
 router.get('/search', controller.search);
