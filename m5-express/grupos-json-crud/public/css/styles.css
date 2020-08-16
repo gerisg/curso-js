@@ -233,6 +233,11 @@ header {
     padding: 1rem;
 }
 
+header nav {
+    display: flex;
+    justify-content: space-between;
+}
+
 header nav a {
     display: inline-block;
     background-color: #7AE7C7;

@@ -56,6 +56,20 @@
                             </div>
 
                             <div class="field">
+                                <label for="category">Categoría</label>
+                                <div class="control">
+                                    <select name="category" name="category">
+                                        <option value="">Selecciona una categoría</option>
+                                        <option value="0" <%= locals.user && user.category ==  0 ? 'selected' : '' %>>Administrador</option>
+                                        <option value="1" <%= locals.user && user.category ==  1 ? 'selected' : '' %>>Usuario</option>
+                                    </select>
+                                </div>
+                                <p class="feedback <%= locals.errors && errors.category ? 'is-danger' : '' %>">
+                                    <%= locals.errors && errors.category ? errors.category.msg : '' %>
+                                </p>
+                            </div>
+
+                            <div class="field">
                                 <label for="name">Imagen</label>
                                 <div class="control">
                                     <input type="file" name="image">

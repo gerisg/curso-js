@@ -1,10 +1,26 @@
 <header>
     <nav>
-        <a href="/groups">Listar grupos</a>
-        <a href="/groups/create">Crear grupo</a>
-        <a href="/groups/search">Buscar grupo</a>
-        <a href="/users">Listar usuarios</a>
-        <a href="/users/create">Crear usuario</a>
-        <a href="/users/search">Buscar usuario</a>
+        <div>
+            <a href="/groups">Listar grupos</a>
+            <a href="/groups/search">Buscar grupo</a>
+            <% if (locals.auth) { %>
+                <a href="/groups/create">Crear grupo</a>
+                <% if (auth.category == 1) { %>
+                    <a href="/users">Listar usuarios</a>
+                    <a href="/users/create">Crear usuario</a>
+                    <a href="/users/search">Buscar usuario</a>
+                <% } %>
+            <% } %> 
+        </div>
+        <div>
+            <% if (locals.auth) { %>
+                <a href="/users/<%= auth.id %>/edit"><%= auth.firstname %></a>
+                <form action="/users/logout" method="post" style="display: inline;">
+                    <button type="submit">Logout</button>
+                </form>
+            <% } else { %>
+                <a href="/users/login">Login</a>
+            <% } %>
+        </div>
     </nav>
 </header>

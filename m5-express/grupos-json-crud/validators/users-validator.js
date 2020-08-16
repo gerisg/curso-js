@@ -14,6 +14,8 @@ module.exports = {
         check('lastname')
             .notEmpty().withMessage('Ingrese su apellido').bail()
             .isLength({ min: 3 }).withMessage('El apellido debe tener al menos 3 caracteres'),
+        check('category')
+            .notEmpty().withMessage('Seleccione una categoría'),
         check('email')
             .notEmpty().withMessage('Ingrese su correo').bail()
             .isEmail().withMessage('Debe ser un correo válido'),
@@ -28,6 +30,8 @@ module.exports = {
         check('lastname')
             .notEmpty().withMessage('Ingrese su apellido').bail()
             .isLength({ min: 3 }).withMessage('El apellido debe tener al menos 3 caracteres'), 
+        check('category')
+            .notEmpty().withMessage('Seleccione una categoría'),
         check('email')
             .notEmpty().withMessage('Ingrese su correo').bail()
             .isEmail().withMessage('Debe ser un correo válido'),

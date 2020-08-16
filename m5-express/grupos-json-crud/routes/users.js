@@ -1,10 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const validate = require('../validators/users-validator');
-const controller = require('../controllers/usersController');
-
 const path = require('path');
 const multer = require('multer');
+const validate = require('../validators/users-validator');
+const guestRoute = require('../middleware/guestRoute');
+const userRoute = require('../middleware/userRoute.js');
+const adminRoute = require('../middleware/adminRoute');
+const controller = require('../controllers/usersController');
 
 const storage = multer.diskStorage({
     destination: path.join(__dirname, '../public/img/users'),
@@ -15,12 +17,13 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-// Formulario de inicio de sesión
-router.get('/login', controller.loginForm);
-
-// Procesamiento de sesión de usuario
-router.post('/login', validate.loginForm, controller.login);
+// Login / Logout
+router.get('/login', guestRoute, controller.login);
+router.post('/login', guestRoute, validate.loginForm, controller.authenticate);
 router.post('/logout', controller.logout);
+
+/*** DESDE ACA SOLO ACCESO ADMIN ***/
+router.use(adminRoute);
 
 // Todos los usuarios
 router.get('/', controller.index);

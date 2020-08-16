@@ -9,10 +9,14 @@
         <p><a href="<%= group.repository %>" target="_blank">Repositorio</a></p>
         <div>
             <a class="button" href="/groups/<%= group.id %>">Ver detalle</a>
-            <a class="button" href="/groups/<%= group.id %>/edit">Editar</a>
-            <form class="form is-inline" action="/groups/<%= group.id %>?_method=DELETE" method="POST">
-                <button class="button is-danger" type="submit">Borrar</button>
-            </form>
+            <% if (locals.auth) { %>
+                <a class="button" href="/groups/<%= group.id %>/edit">Editar</a>
+                <% if (auth.category == 1) { %>
+                    <form class="form is-inline" action="/groups/<%= group.id %>?_method=DELETE" method="POST">
+                        <button class="button is-danger" type="submit">Borrar</button>
+                    </form>
+                <% } %>
+            <% } %>
         </div>
     </div>   
 </article>

@@ -1,11 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const redirect = require('../middleware/redirect');
-const validate = require('../validators/groups-validator');
-const controller = require('../controllers/groupsController');
-
 const path = require('path');
 const multer = require('multer');
+const validate = require('../validators/groups-validator');
+const redirect = require('../middleware/redirect');
+const userRoute = require('../middleware/userRoute');
+const adminRoute = require('../middleware/adminRoute');
+const controller = require('../controllers/groupsController');
 
 const storage = multer.diskStorage({
     destination: path.join(__dirname, '../public/img/groups'),
@@ -26,21 +27,21 @@ router.get('/deprecated', redirect);
 router.get('/search', validate.searchForm, controller.search);
 
 // Formulario de creación
-router.get('/create', controller.create);
+router.get('/create', userRoute, controller.create);
 
 // Procesamiento del formulario de creación
-router.post('/', upload.single('image'), validate.createForm, controller.store); // Al middleware le paso el name del input file
+router.post('/', userRoute, upload.single('image'), validate.createForm, controller.store); // Al middleware le paso el name del input file
 
 // Formulario de edición
-router.get('/:id/edit', controller.edit);
+router.get('/:id/edit', userRoute, controller.edit);
 
 // Procesamiento del formulario de edicion
-router.put('/:id', upload.single('image'), validate.createForm, controller.update);
+router.put('/:id', userRoute, upload.single('image'), validate.createForm, controller.update);
 
 // Detalle de un grupo - Ojo con el parámetro
 router.get('/:id', controller.show);
 
 // Eliminar un grupo
-router.delete('/:id', controller.destroy);
+router.delete('/:id', adminRoute, controller.destroy);
 
 module.exports = router;

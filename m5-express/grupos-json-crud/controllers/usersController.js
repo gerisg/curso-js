@@ -7,18 +7,18 @@ const jsonTable = require('../database/jsonTable');
 const usersModel = jsonTable('users');
 
 module.exports = {
-    loginForm: (req, res) => {
+    login: (req, res) => {
         res.render('users/login');
     },
-    login: (req, res) => {
+    authenticate: (req, res) => {
         let errors = validationResult(req);
         if (errors.isEmpty()) {
             let user = usersModel.findByFields(['email'], req.body.email)[0];
             if(user && bcrypt.compareSync(req.body.password, user.password)) {
-                console.log('SUCCESS!!! [TODO] Save user session');
-                return res.redirect('/');
+                req.session.authorized = { id: user.id, firstname: user.firstname, category: user.category };
+                res.redirect('/');
             } else {
-                return res.render('users/login', { 
+                res.render('users/login', { 
                     errors: { form: { msg: 'Credenciales no válidas' }}
                 });
             }
@@ -27,8 +27,8 @@ module.exports = {
         }
     },
     logout: (req, res) => {
-        // TODO Manejar session
-        res.send(req.body);
+        req.session.destroy();
+        res.redirect('/users/login');
     },
     index: (req, res) => {
         res.render('users/index',  { users: usersModel.all() });
@@ -41,6 +41,7 @@ module.exports = {
         if (errors.isEmpty()) {
             let user = req.body;
             user.password = bcrypt.hashSync(user.password, 10);
+            user.category = parseInt(req.body.category);
             user.image = req.file ? req.file.filename : null;
             let id = usersModel.create(user);
             res.redirect('/users/' + id);
@@ -56,7 +57,8 @@ module.exports = {
         let errors = validationResult(req);
         if (errors.isEmpty()) {
             let user = req.body;
-            user.id = req.params.id;
+            user.id = parseInt(req.params.id);
+            user.category = parseInt(req.body.category);
             user.password = user.password ? bcrypt.hashSync(user.password, 10) : user.currentPass;
             delete user.currentPass;
             user.image = req.file ? req.file.filename : req.body.currentImage ? req.body.currentImage : null;
