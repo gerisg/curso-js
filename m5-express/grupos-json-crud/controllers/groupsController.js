@@ -8,7 +8,9 @@ const categoriesModel = jsonTable('categories');
 
 module.exports = {
     index: (req, res) => {
-        res.render('groups/index',  { groups: groupsModel.all() });
+        let groups = groupsModel.all();
+        groups.map(group => group.category = categoriesModel.find(group.categoryId).name);
+        res.render('groups/index',  { groups });
     },
     create: (req, res) => {
         let categories = categoriesModel.all();
@@ -68,6 +70,7 @@ module.exports = {
         if (errors.isEmpty()) {
             let search = req.query.search;
             let groups = search && search.length == 0 ? groupsModel.all() : groupsModel.findByFields(['name', 'description'], search);
+            groups.map(group => group.category = categoriesModel.find(group.categoryId).name);
             res.render('groups/search', { search, groups });
         } else {
             res.render('groups/search', { errors: errors.mapped(), search: req.query.search });
