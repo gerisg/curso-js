@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const methodOverride = require('method-override');
 const session = require('express-session');
+const cookieParser = require('cookie-parser');
 
 const mainRoutes = require('./routes/index');
 const groupsRoutes = require('./routes/groups');
@@ -23,6 +24,7 @@ app.use(session({
     resave: false, // no vuelve a guardar si no hay cambios
     saveUninitialized: true // guarda sessiones aunque todavía no haya datos
 }))
+app.use(cookieParser()) // soportar cookies
 app.use(auth); // authentication with session
 
 // Routes

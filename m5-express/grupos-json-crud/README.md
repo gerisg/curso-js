@@ -401,4 +401,22 @@ app.use(session({
 
 ### Cookies
 
+Las cookies viven del lado del usuario por lo tanto son inseguras. No deberían revelar información del sistema.
+
+#### Instalar express-session
+
+```sh
+npm i cookie-parser
+```
+
+#### Configuración en express
+
+```javascript
+var cookieParser = require('cookie-parser')
+app.use(cookieParser())
+```
+
+
+res.cookie('club', 'boca juniors');
+req.cookie.club
 [TODO]

@@ -1,10 +1,12 @@
 const fs = require('fs');
 const path = require('path');
 const bcrypt = require('bcryptjs');
-const { validationResult } = require('express-validator'); 
+const crypto = require('crypto');
+const { validationResult } = require('express-validator');
 
 const jsonTable = require('../database/jsonTable');
 const usersModel = jsonTable('users');
+const usersTokensModel = jsonTable('usersTokens');
 
 module.exports = {
     login: (req, res) => {
@@ -16,6 +18,12 @@ module.exports = {
             let user = usersModel.findByFields(['email'], req.body.email)[0];
             if(user && bcrypt.compareSync(req.body.password, user.password)) {
                 req.session.authorized = { id: user.id, firstname: user.firstname, category: user.category };
+                if(req.body.remember) {
+                    // Token Seguro: https://stackoverflow.com/questions/8855687/secure-random-token-in-node-js
+                    const token = crypto.randomBytes(64).toString('base64');
+                    usersTokensModel.create({userId: user.id, token });
+                    res.cookie('ut', token, { maxAge: 1000 * 60 * 60 * 24 * 30 } )
+                }
                 res.redirect('/');
             } else {
                 res.render('users/login', { 
@@ -27,6 +35,9 @@ module.exports = {
         }
     },
     logout: (req, res) => {
+        let userToken = usersTokensModel.findByFields(['token'], req.cookies.ut)[0];
+        usersTokensModel.delete(userToken.id);
+        res.clearCookie('ut');
         req.session.destroy();
         res.redirect('/users/login');
     },
