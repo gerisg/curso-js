@@ -44,7 +44,7 @@ SELECT * FROM actors LIMIT 10 OFFSET 40
 
 11. Mostrar el título y rating de todas las películas cuyo título sea de Toy Story.
 
-```SELECT title, rating FROM movies WHERE title LIKE 'Toy Story'```
+```SELECT title, rating FROM movies WHERE title LIKE 'Toy Story%'```
 
 12. Mostrar a todos los actores que se llamen Sam.
 
@@ -60,4 +60,4 @@ SELECT * FROM actors LIMIT 10 OFFSET 40
 
 15. Traer el top 3 a partir del registro 10 de la consulta anterior.
 
-```SELECT title, awards FROM movies WHERE awards > 1 BETWEEN '1988-01-01 00:00:00' AND '2008-12-31 23:59:59' ORDER BY awards DESC LIMIT 3```
+```SELECT title, awards FROM movies WHERE awards > 1 BETWEEN '1988-01-01 00:00:00' AND '2008-12-31 23:59:59' ORDER BY awards DESC LIMIT 3 OFFSET 10```
