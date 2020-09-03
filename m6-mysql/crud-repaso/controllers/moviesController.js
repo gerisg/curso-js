@@ -3,7 +3,7 @@ let { genre, movie }   = require('../database/models');
 let moviesController = {
     create: (req, res) => {
         genre.findAll()
-            .then(genres => res.render('create-movie', { genres }))
+            .then(genres => res.render('movies/create', { genres }))
             .catch(error => res.render('error', error))
     },
     save: (req, res) => {
@@ -20,12 +20,12 @@ let moviesController = {
     },
     list: (req, res) => {
         movie.findAll()
-            .then(movies => res.render('list-movies', { movies }))
+            .then(movies => res.render('movies/list', { movies }))
             .catch(error => res.render('error', error))
     },
     detail: (req, res) => {
         movie.findByPk(req.params.id, { include: ['genre', 'actors'] })
-            .then(movie => res.render('detail-movie', { movie }))
+            .then(movie => res.render('movies/detail', { movie }))
             .catch(error => res.render('error', error))
     },
     edit: (req, res) => {
@@ -34,7 +34,7 @@ let moviesController = {
         Promise.all([moviePromise, genresPromise])
             .then(([movie, genres]) => { 
                 console.log(JSON.stringify(movie)); 
-                res.render('edit-movie', { movie, genres });
+                res.render('movies/edit', { movie, genres });
             });
     },
     update: (req, res) => {
