@@ -1,0 +1,14 @@
+<%- include('header') %>
+
+<h1>Listado de películas</h1>
+<ul>
+    <% movies.forEach(movie => { %>
+        <li>
+            <a href="/movies/<%= movie.id %>">
+                <%= movie.title %>
+            </a>
+        </li>
+    <% }) %>
+</ul>
+
+<%- include('footer') %>

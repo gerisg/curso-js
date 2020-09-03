@@ -1,0 +1,23 @@
+body {
+  margin: 0;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+header {
+  background-color: black;
+  color: white;
+  padding: 1rem;
+}
+
+a {
+  color: #00B7FF;
+}
+
+nav ul {
+  display: flex;
+  list-style-type: none;
+}
+
+nav ul li {
+  margin-right: 10px;
+}
