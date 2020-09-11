@@ -416,7 +416,28 @@ var cookieParser = require('cookie-parser')
 app.use(cookieParser())
 ```
 
+#### Escritura de cookie
 
-res.cookie('club', 'boca juniors');
-req.cookie.club
-[TODO]
+Escribimos la cookie en el parámetro _res_. Se sugiere utilizar algún método de encriptación para la misma y almacanerla relacionada con el ID del usuario para poder desencriptarla cuando sea necesario.
+
+```javascript
+const token = crypto.randomBytes(64).toString('base64');
+res.cookie('userToken', token, { maxAge: 1000 * 60 * 60 * 24 * 30 });
+usersTokensModel.create({ userId: user.id, token });
+```
+
+#### Lectura de cookie
+
+Leemos la cookie en el parámetro _req_ indicando el nombre que utilizamos para la misma al momento de crearla.
+
+```javascript
+req.cookies.userToken
+```
+
+#### Limpieza de cookie
+
+Cuando el usuario cierra la sesión podemos optar por eliminar las cookies haciendo uso del parámetro clearCookie.
+
+```javascript
+res.clearCookie('userToken');
+```
