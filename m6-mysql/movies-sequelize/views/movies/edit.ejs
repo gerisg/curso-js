@@ -1,0 +1,42 @@
+<%- include('../partials/header') %>
+<main>
+    <h1>Editar película</h1>
+    <form action="/movies/<%= movie.id %>/edit" method="post">
+        <div>
+            <label for="title">Título</label>
+            <input type="text" name="title" value="<%= movie.title %>">
+        </div>
+        <div>
+            <label for="awards">Premios</label>
+            <input type="text" name="awards" value="<%= movie.awards %>">
+        </div>
+        <div>
+            <label for="length">Duración</label>
+            <input type="text" name="length" value="<%= movie.length %>">
+        </div>
+        <div>
+            <label for="rating">Rating</label>
+            <input type="text" name="rating" value="<%= movie.rating %>">
+        </div>
+        <div>
+            <label for="releaseDate">Fecha de Estreno</label>
+            <input type="date" name="releaseDate" value="<%= movie.release_date %>">
+            <input type="hidden" name="release_date" value="<%= movie.release_date %>">
+        </div>
+        <div>
+            <label for="genre">Género</label>
+            <select name="genre" id="genre">
+                <% genres.forEach(genre => { %>
+                    <option value="<%= genre.id %>" <%= genre.id == movie.genre_id ? 'selected' : '' %>>
+                        <%= genre.name %>
+                    </option>
+                <% }) %>
+            </select>
+        </div>
+        <div>
+            <button class="btn" type="submit">Guardar pelicula</button>
+            <button class="btn" type="reset">Reset</button>
+        </div>
+    </form>
+</main>
+<%- include('../partials/footer') %>

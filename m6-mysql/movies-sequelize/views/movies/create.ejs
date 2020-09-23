@@ -1,0 +1,39 @@
+<%- include('../partials/header') %>
+<main>
+    <h1>Crear película</h1>
+    <form action="/movies/create" method="post">
+        <div>
+            <label for="title">Título</label>
+            <input type="text" name="title">
+        </div>
+        <div>
+            <label for="awards">Premios</label>
+            <input type="text" name="awards">
+        </div>
+        <div>
+            <label for="length">Duración</label>
+            <input type="number" name="length">
+        </div>
+        <div>
+            <label for="rating">Rating</label>
+            <input type="number" name="rating">
+        </div>
+        <div>
+            <label for="releaseDate">Fecha de Estreno</label>
+            <input type="date" name="releaseDate">
+        </div>
+        <div>
+            <label for="genre">Género</label>
+            <select name="genre" id="genre">
+                <% genres.forEach(genre => { %>
+                    <option value="<%= genre.id %> "><%= genre.name %> </option>
+                <% }) %>
+            </select>
+        </div>
+        <div>
+            <button class="btn" type="submit">Crear pelicula</button>
+            <button class="btn" type="reset">Reset</button>
+        </div>
+    </form>
+</main>
+<%- include('../partials/footer') %>

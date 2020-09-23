@@ -1,0 +1,43 @@
+<%- include('../partials/header') %>
+<main>
+    <h1>Pelicula #<%= movie.id %> </h1>
+    <div class="info">
+        <label>Titulo</label>
+        <span><%= movie.title %></span>
+    </div>
+    <div class="info">
+        <label>Premios</label>
+        <span><%= movie.awards %></span>
+    </div>
+    <div class="info">
+        <label>Estreno</label>
+        <span><%= movie.release_date.toDateString() %></span>
+    </div>
+    <div class="info">
+        <label>Genero</label>
+        <span><%= movie.genre.name %></span>
+    </div>
+    <div class="info">
+        <label>Actores</label>
+        <% movie.actors.forEach(actor => { %>
+            <span><%= actor.first_name %> <%= actor.last_name %></span>
+        <% }) %>
+    </div>
+    <div class="info">
+        <label>Duracion</label>
+        <span><%= movie.length %></span>
+    </div>
+    <div class="info">
+        <label>Rating</label>
+        <span><%= movie.rating %></span>
+    </div>
+    <div>
+        <a href="/movies/<%= movie.id %>/edit">
+            <button class="btn">Editar</button>
+        </a>
+        <form action="/movies/<%= movie.id %>/delete" method="post" style="display: inline-block;">
+            <button class="btn" type="submit">Borrar</button>
+        </form>
+    </div>
+</main>
+<%- include('../partials/footer') %>

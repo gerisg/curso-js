@@ -1,0 +1,151 @@
+/* https://coolors.co/fca311-ef626c-e4fde1-312f2f-84dccf */
+
+:root {
+  --dark: #312F2F;
+  --ligth: #E4FDE1;
+
+  --blue-green: #84DCCF;
+  --rose: #EF626C;
+  --orange: #FCA311;
+  --orange-dark: #CA7D02;
+
+  --default-margin: .5rem;
+  --default-padding: .5rem;
+}
+
+/* Generals */
+
+html { font-family: "Lucida Grande", Helvetica, Arial, sans-serif; }
+
+body { 
+  margin: 0; 
+  box-sizing: content-box; 
+}
+
+img { width: 100%; }
+
+a {
+  color: #00B7FF;
+  text-decoration: none;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: normal;
+  margin: 0 0 var(--default-margin);
+  text-transform: uppercase;
+}
+
+.btn {
+  color: var(--ligth);
+  background-color: var(--orange-dark);
+  border-radius: 2px;
+  padding: var(--default-padding);
+  margin: var(--default-margin) 0;
+  font-weight: bold;
+  border: 0;
+}
+
+.btn:hover {
+  background-color: var(--orange);
+  border: 1px solid var(--orange-dark);
+}
+
+/* Header */
+
+header {
+  background-color: var(--orange);
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header div:first-child { width: 20%; }
+
+/* Main */
+
+main {
+  padding: var(--default-padding);
+  margin: var(--default-margin);
+}
+
+/* Footer */
+
+footer {
+  background-color: var(--dark);
+  color: var(--ligth);
+  padding: var(--default-padding);
+  margin: 0;
+  text-align: center;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+}
+
+/* Forms */
+
+input, select {
+  box-sizing: content-box; 
+  background-color: initial;
+  padding: 10px 10px 0;
+  border-width: 1px;
+  width: 100%;
+  height: 24px;
+}
+
+input:focus, select:focus {
+  border: 1px solid var(--orange);
+  outline: none;
+}
+
+form>div {
+  margin-top: var(--default-margin);
+  max-width: 500px;
+}
+
+form label {
+  color: #8c8c8c;
+}
+
+/* Movies */
+
+.movies {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.movie {
+  background-color: var(--rose);
+  padding: var(--default-padding);
+  margin: var(--default-margin);
+}
+
+.movie:hover {
+  background-color: var(--orange);
+}
+
+.movie a { color: var(--dark); }
+.movie a::before { content: '»' }
+.movie a::after { content: '«' }
+
+/* Movie Detail */
+
+.info {
+  background-color: var(--light);
+  padding: var(--default-padding);
+}
+
+.info label {
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.info label::after {
+  content: ': ';
+}
+
+.info span {
+  font-weight: lighter;
+}
