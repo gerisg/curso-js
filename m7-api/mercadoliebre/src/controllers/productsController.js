@@ -181,6 +181,6 @@ module.exports = {
 			include: ['products']
 		});
 
-		return res.render('products/categories', { products, categories, title })
+		return res.render('products/categories', { categories, title })
 	}
 }

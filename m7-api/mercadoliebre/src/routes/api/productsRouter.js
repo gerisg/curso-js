@@ -4,11 +4,12 @@ const router = express.Router();
 
 // ************ Controller Require ************
 
-const productsApiController = require('../../controllers/api/productsApiController');
+const productsController = require('../../controllers/api/productsController');
 
 // ************       Routes       ************
 
-router.get('/latest', productsApiController.latest);
-router.get('/offers', productsApiController.offers);
+router.get('/latest', productsController.latest);
+router.get('/offers', productsController.offers);
+router.get('/:category?', productsController.categories);
 
 module.exports = router;
